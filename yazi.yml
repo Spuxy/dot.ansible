@@ -1,0 +1,8 @@
+- name: Neovim
+  hosts: localhost
+  tasks:
+    - name: Filesystem Manager
+      community.general.pacman:
+        name:
+          - yazi
+        state: present

@@ -1,0 +1,10 @@
+- name: Neovim
+  hosts: localhost
+  tasks:
+    - name: Full System Upgrade
+      community.general.pacman:
+        name:
+          - ranger
+          - neovim
+          - vim
+        state: present

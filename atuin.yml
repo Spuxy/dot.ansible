@@ -1,0 +1,7 @@
+- name: "[INSTALL] - Atuin"
+  community.general.pacman:
+    name:
+      - atuin
+    state: present
+- name: "[STOW] - Atuin"
+  shell: "stow -d {{ ansible_dotfiles }} -S atuin"

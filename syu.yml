@@ -1,0 +1,40 @@
+- name: Test
+  hosts: localhost
+  vars:
+    - ansible_user: "spuxy"
+    - ansible_dotfiles: "/home/spuxy/.dotfiles"
+    - ansible_home: "/home/spuxy"
+  tasks:
+    - name: Full System Upgrade
+      community.general.pacman:
+        upgrade: true
+
+    # Pre-task
+    - include_tasks: ./stow.yml
+
+    # Languages
+    - include_tasks: ./go.yml
+    - include_tasks: ./rust.yml
+    - include_tasks: ./npm.yml
+
+    # Tools
+    - include_tasks: ./alacritty.yml
+    - include_tasks: ./atuin.yml
+
+    - include_tasks: ./bottom.yml
+
+    - include_tasks: ./calcurse.yml
+    - include_tasks: ./conky.yml
+
+    - include_tasks: ./discordo.yml
+
+    - include_tasks: ./git.yml
+
+    - include_tasks: ./npm.yml
+
+    - include_tasks: ./zsh-setup.yml
+
+    # Dirs
+    - include_tasks: ./dirs.yml
+    - include_tasks: ./books.yml
+

@@ -1,0 +1,7 @@
+- name: "[INSTALL] - calcurse"
+  community.general.pacman:
+    name:
+      - calcurse
+    state: present
+- name: "[STOW] - calcurse"
+  shell: "stow -d {{ ansible_dotfiles }} -S calcurse"
