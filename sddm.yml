@@ -1,0 +1,14 @@
+- name: "SDDM"
+  block:
+  - name: "[INSTALL] - {{ pkg }}"
+    community.general.pacman:
+      name:
+        - "{{ pkg }}"
+      state: present
+  - name: "[[CONFIGURATION]] - {{ pkg }}"
+    shell: "mkdir -p /usr/share/xsessions"
+  - name: "[STOW] - {{ pkg }}"
+    shell: "stow -d {{ ansible_dotfiles }} -S {{ pkg }}"
+  vars:
+    pkg: "sddm"
+

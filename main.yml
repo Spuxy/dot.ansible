@@ -37,6 +37,8 @@
 
     - include_tasks: ./git.yml
 
+    - include_tasks: ./hyprland.yml
+
     - include_tasks: ./lf.yml
 
     - include_tasks: ./mpd.yml
@@ -58,11 +60,14 @@
     - include_tasks: ./russ.yml
 
     - include_tasks: ./scripts.yml
-    - include_tasks: ./spoify-tui.yml
+    # - include_tasks: ./spotify-tui.yml
     - include_tasks: ./spotifyd.yml
     - include_tasks: ./sxhkd.yml
+    - include_tasks: ./sddm.yml
 
     - include_tasks: ./tmux.yml
+
+    # - include_tasks: ./xinitrc.yml
 
     - include_tasks: ./zathura.yml
     - include_tasks: ./zsh.yml
