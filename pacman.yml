@@ -1,0 +1,2 @@
+- name: "[STOW] - pacman"
+  shell: "stow -d {{ ansible_dotfiles }} -S pacman"
