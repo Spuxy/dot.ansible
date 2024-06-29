@@ -1,0 +1,7 @@
+- name: "[INSTALL] - tmux"
+  community.general.pacman:
+    name:
+      - tmux 
+    state: present
+- name: "[STOW] - tmux"
+  shell: "stow -d {{ ansible_dotfiles }} -S tmux"

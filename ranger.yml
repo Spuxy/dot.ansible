@@ -1,0 +1,7 @@
+- name: "[INSTALL] - ranger"
+  community.general.pacman:
+    name:
+      - ranger 
+    state: present
+- name: "[STOW] - ranger"
+  shell: "stow -d {{ ansible_dotfiles }} -S ranger"

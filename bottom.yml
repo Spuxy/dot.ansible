@@ -1,0 +1,7 @@
+- name: "[INSTALL] - bottom"
+  community.general.pacman:
+    name:
+      - bottom
+    state: present
+- name: "[STOW] - bottom"
+  shell: "stow -d {{ ansible_dotfiles }} -S bottom"

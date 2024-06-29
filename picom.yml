@@ -1,0 +1,7 @@
+- name: "[INSTALL] - picom"
+  community.general.pacman:
+    name:
+      - picom 
+    state: present
+- name: "[STOW] - picom"
+  shell: "stow -d {{ ansible_dotfiles }} -S picom"

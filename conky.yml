@@ -1,0 +1,7 @@
+- name: "[INSTALL] - conky"
+  community.general.pacman:
+    name:
+      - conky
+    state: present
+- name: "[STOW] - conky"
+  shell: "stow -d {{ ansible_dotfiles }} -S conky"

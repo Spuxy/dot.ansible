@@ -1,0 +1,5 @@
+- name: "[INSTALL] - fzf"
+  community.general.pacman:
+    name:
+      - fzf
+    state: present

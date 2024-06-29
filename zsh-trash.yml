@@ -1,0 +1,19 @@
+- name: Neovim
+  hosts: localhost
+  tasks:
+    - name: My Zsh shiet !
+      community.general.pacman:
+        name:
+          - zsh
+        state: present
+    - name: Clone oh-my-zsh for users
+      tags:
+        - skip_ansible_lint
+      become: true
+      become_user: '{{ user.username }}'
+      ansible.builtin.command: 'git clone -c core.autocrlf=input --depth=1 https://github.com/ohmyzsh/ohmyzsh.git .oh-my-zsh'
+      args:
+        chdir: '~{{ user.username }}'
+        creates: '~{{ user.username }}/.oh-my-zsh'
+      with_items: "{{ users }}"
+

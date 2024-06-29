@@ -1,0 +1,30 @@
+- name: "My Zsh shiet !"
+  community.general.pacman:
+    name:
+      - zsh
+      - ruby
+    state: present
+
+- name: "Change default shell to ZSH"
+  become: yes
+  user:
+    name: "{{ ansible_user }}"
+    shell: /bin/zsh
+
+- name: "Check that the somefile.conf exists"
+  stat:
+    path: /home/spuxy/.oh-my-zsh
+  register: oh_my_stats
+
+- name: "Cloning an repo - Oh-My-Zsh"
+  shell: curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh > ~/.oh-my-installer && chmod +x ~/.oh-my-installer && ~/.oh-my-installer
+  when: oh_my_stats.stat.exists == False
+  become_user: "{{ ansible_user }}"
+
+- name: "[PLUGIN] - zsh-autosuggestions"
+  ansible.builtin.git:
+    repo: 'https://github.com/zsh-users/zsh-autosuggestions.git'
+    dest: "~/.config/zsh/plugins/zsh-autosuggestions"
+
+- name: "[STOW] - zsh"
+  shell: "stow -d {{ ansible_dotfiles }} -S zsh"

@@ -1,0 +1,7 @@
+- name: "[INSTALL] - qutebrowser"
+  community.general.pacman:
+    name:
+      - qutebrowser 
+    state: present
+- name: "[STOW] - qutebrowser"
+  shell: "stow -d {{ ansible_dotfiles }} -S qutebrowser"

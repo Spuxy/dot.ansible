@@ -1,0 +1,7 @@
+- name: "[INSTALL] - fontconfig"
+  community.general.pacman:
+    name:
+      - fontconfig
+    state: present
+- name: "[STOW] - fontconfig"
+  shell: "stow -d {{ ansible_dotfiles }} -S fonts"

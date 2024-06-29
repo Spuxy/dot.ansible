@@ -1,0 +1,7 @@
+- name: "[INSTALL] - ncmpcpp"
+  community.general.pacman:
+    name:
+      - ncmpcpp 
+    state: present
+- name: "[STOW] - ncmpcpp"
+  shell: "stow -d {{ ansible_dotfiles }} -S ncmpcpp"

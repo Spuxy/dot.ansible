@@ -1,0 +1,20 @@
+- name: "Spotify"
+  block:
+  - name: "[INSTALL] - {{ pkg }}"
+    community.general.cargo:
+      name:
+        - "{{ pkg }}"
+      state: latest
+  - name: "[INSTALL] - {{ daemon }}"
+    community.general.cargo:
+      name:
+        - "{{ daemon }}"
+      state: latest
+  - name: "[STOW] - {{ pkg }}"
+    shell: "stow -d {{ ansible_dotfiles }} -S {{ pkg }}"
+  - name: "[STOW] - {{ daemon }}"
+    shell: "stow -d {{ ansible_dotfiles }} -S {{ daemon }}"
+  vars:
+    pkg: "spotify_tui"
+    daemon: "spotifyd"
+

@@ -1,0 +1,9 @@
+- name: "[INSTALL] - discordo"
+  shell:
+    chdir: "{{ ansible_home }}/pkgs"
+    cmd: "git clone https://github.com/ayn2op/discordo"
+    chdir: "{{ ansible_home }}/pkgs/discordo"
+    cmd: "go build ."
+
+- name: "[STOW] - discordo"
+  shell: "stow -d {{ ansible_dotfiles }} -S discordo"

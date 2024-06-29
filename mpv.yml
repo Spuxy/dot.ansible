@@ -1,0 +1,7 @@
+- name: "[INSTALL] - mpv"
+  community.general.pacman:
+    name:
+      - mpv
+    state: present
+- name: "[STOW] - mpv"
+  shell: "stow -d {{ ansible_dotfiles }} -S mpv"

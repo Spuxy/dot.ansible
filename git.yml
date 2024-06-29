@@ -1,0 +1,7 @@
+- name: "[INSTALL] - git"
+  community.general.pacman:
+    name:
+      - git
+    state: present
+- name: "[STOW] - git"
+  shell: "stow -d {{ ansible_dotfiles }} -S git"

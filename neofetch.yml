@@ -1,0 +1,7 @@
+- name: "[INSTALL] - neofetch"
+  community.general.pacman:
+    name:
+      - neofetch 
+    state: present
+- name: "[STOW] - neofetch"
+  shell: "stow -d {{ ansible_dotfiles }} -S neofetch"
