@@ -1,0 +1,27 @@
+- name: "yay"
+  block:
+  - name: "[GIT CLONE] - yay"
+    ansible.builtin.git:
+      repo: "https://aur.archlinux.org/yay.git"
+      dest: "{{ ansible_home }}/pkgs/yay"
+    become: yes
+    become_user: spuxy
+
+  - name: "[BUILD] - yay"
+    shell: 
+      chdir: "{{ ansible_home }}/pkgs/yay"
+      cmd: "makepkg -si --noconfirm"
+    become: yes
+    become_user: spuxy
+
+  - name: "[UPDATE & UPGRADE] - yay"
+    shell: 
+      cmd: "yay -Syu"
+    become: yes
+    become_user: spuxy
+
+  - name: "UNCOMMENT PACMAN.CONF"
+    ansible.builtin.replace:
+      path: /home/spuxy/kokotina
+      regexp: "^#[multilib]"
+      replace: "Picovuina"

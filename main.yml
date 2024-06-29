@@ -6,10 +6,14 @@
     - ansible_home: "/home/spuxy"
     - ansible_personal_scripts: "/home/spuxy/.local/share/bin"
     - ansible_zsh: "/home/spuxy/.config/zsh"
+    - ansible_pkgs: "/home/spuxy/pkgs"
   tasks:
     - name: Full System Upgrade
       community.general.pacman:
         upgrade: true
+      become: true
+      become_user: root
+      become_method: sudo
 
     # Pre-task
     - include_tasks: ./stow.yml
@@ -19,6 +23,10 @@
     - include_tasks: ./rust.yml
     - include_tasks: ./npm.yml
 
+
+    - include_tasks: ./nvidia.yml
+    - include_tasks: ./yay.yml
+    - include_tasks: ./fonts.yml
     # Tools
     - include_tasks: ./alacritty.yml
     - include_tasks: ./atuin.yml
@@ -32,10 +40,12 @@
     - include_tasks: ./discordo.yml
     - include_tasks: ./dunst.yml
 
-    - include_tasks: ./fonts.yml
+    - include_tasks: ./eww.yml
+
     - include_tasks: ./fzf.yml
 
     - include_tasks: ./git.yml
+    - include_tasks: ./gtk.yml
 
     - include_tasks: ./hyprland.yml
 
@@ -64,6 +74,7 @@
     - include_tasks: ./spotifyd.yml
     - include_tasks: ./sxhkd.yml
     - include_tasks: ./sddm.yml
+    - include_tasks: ./swaync.yml
 
     - include_tasks: ./tmux.yml
 
@@ -71,6 +82,7 @@
 
     - include_tasks: ./zathura.yml
     - include_tasks: ./zsh.yml
+    - include_tasks: ./zoxide.yml
 
     # Dirs
     - include_tasks: ./dirs.yml

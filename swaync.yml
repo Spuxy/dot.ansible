@@ -1,13 +1,11 @@
-- name: "Hyprland"
+- name: "Swaync"
   block:
   - name: "[INSTALL] - {{ pkg }}"
     community.general.pacman:
       name:
         - "{{ pkg }}"
-        - "xdg-desktop-portal-hyprland"
       state: present
   - name: "[STOW] - {{ pkg }}"
     shell: "stow -d {{ ansible_dotfiles }} -S {{ pkg }}"
   vars:
-    pkg: "hyprland"
-
+    pkg: "swaync"

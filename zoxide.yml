@@ -1,0 +1,9 @@
+- name: "Zoxide"
+  block:
+  - name: "[INSTALL] - {{ pkg }}"
+    community.general.pacman:
+      name:
+        - "{{ pkg }}"
+      state: present
+  vars:
+    pkg: "zoxide"

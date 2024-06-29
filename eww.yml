@@ -1,0 +1,11 @@
+- name: "EWW"
+  block:
+  - name: "[GIT CLONE] - eww"
+    ansible.builtin.git:
+      repo: "https://github.com/elkowar/eww"
+      dest: "{{ ansible_home }}/pkgs/eww"
+  - name: "[BUILD] - eww"
+    shell: 
+      chdir: "{{ ansible_home }}/pkgs/eww"
+      cmd: "cargo build --release --no-default-features --features=wayland"
+      cmd: "chmod +x ./eww"

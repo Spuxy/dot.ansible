@@ -1,0 +1,9 @@
+- name: "GTK"
+  block:
+  - name: "[INSTALL] - {{ pkg }}"
+    community.general.pacman:
+      name:
+        - "{{ pkg }}"
+      state: present
+  vars:
+    pkg: "gtk4"

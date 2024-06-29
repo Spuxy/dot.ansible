@@ -1,7 +1,32 @@
-- name: "[INSTALL] - fontconfig"
-  community.general.pacman:
-    name:
-      - fontconfig
-    state: present
-- name: "[STOW] - fontconfig"
-  shell: "stow -d {{ ansible_dotfiles }} -S fonts"
+- name: "Fonts"
+  block:
+  - name: "[INSTALL] - fontconfig"
+    community.general.pacman:
+      name:
+        - fontconfig
+      state: present
+
+  - name: "[CREATE DIRECTORY] - Nerd fonts"
+    ansible.builtin.file:
+      path: "{{ ansible_home }}/pkgs/nerd-fonts"
+      state: directory
+
+  - name: "[GIT CLONE] - nerdfonts"
+    ansible.builtin.git:
+      repo: "https://github.com/ryanoasis/nerd-fonts"
+      dest: "{{ ansible_home }}/pkgs/nerd-fonts"
+      depth: 1
+
+  - name: "[INSTALL] - nerdfonts"
+    ansible.builtin.command: "sh /home/spuxy/pkgs/nerd-fonts/install.sh"
+    delegate_to: 127.0.0.1
+
+  - name: "[INSTALL] - nerdfonts"
+    ansible.builtin.command: "/home/spuxy/pkgs/nerd-fonts/install.sh"
+    delegate_to: 127.0.0.1
+
+  - name: "[STOW] - fontconfig"
+    shell: "stow -d {{ ansible_dotfiles }} -S fonts"
+    vars:
+      pkg: "redshift"
+

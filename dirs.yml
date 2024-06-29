@@ -2,50 +2,70 @@
   ansible.builtin.file:
     path: "{{ ansible_home }}/Media"
     state: directory
+  become: yes
+  become_user: spuxy
 
 
 - name: "[CREATE DIRECTORY] - Games"
   ansible.builtin.file:
     path: "{{ ansible_home }}/Games"
     state: directory
-
+  become: yes
+  become_user: spuxy
 
 - name: "[CREATE DIRECTORY] - Programming"
   ansible.builtin.file:
     path: "{{ ansible_home }}/Programming"
     state: directory
+  become: yes
+  become_user: spuxy
+
 
 - name: "[CREATE DIRECTORY] - GO"
   ansible.builtin.file:
     path: "{{ ansible_home }}/Programming/go"
     state: directory
+  become: yes
+  become_user: spuxy
 
 - name: "[CREATE DIRECTORY] - RUST"
   ansible.builtin.file:
     path: "{{ ansible_home }}/Programming/rust"
     state: directory
+  become: yes
+  become_user: spuxy
 
 - name: "[CREATE DIRECTORY] - CPP"
   ansible.builtin.file:
     path: "{{ ansible_home }}/Programming/cpp"
     state: directory
+  become: yes
+  become_user: spuxy
 
 - name: "[CREATE DIRECTORY] - Working"
   ansible.builtin.file:
     path: "{{ ansible_home }}/Working"
     state: directory
+  become: yes
+  become_user: spuxy
 
 - name: "[CREATE DIRECTORY] - Dotfiles"
   ansible.builtin.file:
     path: "{{ ansible_home }}/.dotfiles"
     state: directory
+  become: yes
+  become_user: spuxy
 
 - name: "[CREATE DIRECTORY] - Pkgs"
   ansible.builtin.file:
     path: "{{ ansible_home }}/pkgs"
     state: directory
+  become: yes
+  become_user: spuxy
 
 - name: "[CREATE DIRECTORY] - Scripts"
   ansible.builtin.file:
     path: "{{ ansible_home }}/.local/share/bin"
     state: directory
+  become: yes
+  become_user: spuxy

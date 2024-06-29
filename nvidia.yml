@@ -1,0 +1,24 @@
+- name: "NVIDIA"
+  block:
+  - name: "[INSTALL] - nvidia"
+    community.general.pacman:
+      name:
+        - "{{ pkg1 }}"
+      state: present
+
+  - name: "[INSTALL] - nvidia"
+    shell:
+      cmd: "yay -S {{ pkg2 }} --answerclean All --answerdiff All --answerupgrade All"
+
+  - name:
+    ansible.builtin.replace:
+      path: /home/spuxy/kokotina
+      regexp: '^MODULES'
+      replace: 'test'
+
+  vars:
+    pkg1: "nvidia"
+    pkg2: "lib32-nvidia-utils"
+
+
+
