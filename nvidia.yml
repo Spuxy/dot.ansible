@@ -4,21 +4,42 @@
     community.general.pacman:
       name:
         - "{{ pkg1 }}"
+        - "{{ pkg2 }}"
+        - "{{ pkg3 }}"
       state: present
 
-  - name: "[INSTALL] - nvidia"
-    shell:
-      cmd: "yay -S {{ pkg2 }} --answerclean All --answerdiff All --answerupgrade All"
+      #- name: "[INITRAMFS CONF] - nvidia"
+      # shell: "sed -Ei 's/^(MODULES=\\([^\\)]*)\\)/\\1nvidia nvidia_modeset nvidia_uvm nvidia_drm)/' /home/spuxy/dot.ansible/testconf"
+      #become: true
+      #become_user: root
+      #become_method: sudo
 
-  - name:
+  - name: "[INITRAMFS CONF] - nvidia"
     ansible.builtin.replace:
-      path: /home/spuxy/kokotina
-      regexp: '^MODULES'
-      replace: 'test'
+      path: /etc/mkinitcpio.conf
+      regexp: "^MODULES\\=\\(\\)"
+      replace: "MODULES=(nvidia nvidia_modeset nvidia_uvm nvidia_drm)"
+    become: true
+    become_user: root
+    become_method: sudo
+
+  - name: Update/create block if needed. Create file if not exists
+    lineinfile:
+      path: /etc/modprobe.d/nvidia.conf
+      line: "options nvidia_drm modeset=1 fbdev=1"
+      create: true
+    become: true
+    become_user: root
+    become_method: sudo
+
+  - name: "[INITRAMFS BUILD] - nvidia"
+    command: mkinitcpio -P
+    become: true
+    become_user: root
+    become_method: sudo
 
   vars:
     pkg1: "nvidia"
-    pkg2: "lib32-nvidia-utils"
-
-
+    pkg2: "nvidia-utils"
+    pkg3: "egl-wayland"
 

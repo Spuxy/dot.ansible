@@ -1,0 +1,19 @@
+- name: "PIPEWIRE"
+  block:
+  - name: "[INSTALL] - pipewire"
+    community.general.pacman:
+      name:
+        - "{{ pkg1 }}"
+        - "{{ pkg2 }}"
+        - "{{ pkg3 }}"
+        - "{{ pkg4 }}"
+        - "{{ pkg5 }}"
+      state: present
+
+  vars:
+    pkg1: "pipewire"
+    pkg2: "pipewire-pulse"
+    pkg3: "pipewire-audio"
+    pkg4: "wireplumber"
+    pkg5: "pavucontrol"
+
