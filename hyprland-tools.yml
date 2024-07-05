@@ -1,0 +1,63 @@
+- name: "[INSTALL] pkgs pacman"
+  community.general.pacman:
+    name:
+      [
+        "brightnessctl",
+        "btop",
+        "eog",
+        "fastfetch",
+        "gnome-system-monitor",
+        "mousepad",
+        "mpv-mpris",
+        "nvtop",
+        "nwg-look",
+        "pacman-contrib",
+        "yt-dlp",
+        "cliphist",
+        "grim",
+        "gvfs",
+        "gvfs-mtp",
+        "hypridle",
+        "hyprlock",
+        "imagemagick",
+        "inxi",
+        "jq",
+        "kitty",
+        "kvantum",
+        "nano",
+        "network-manager-applet",
+        "playerctl",
+        "polkit-gnome",
+        "python-requests",
+        "python-pyquery",
+        "qt5ct",
+        "qt6ct",
+        "qt6-svg",
+        "rofi-wayland",
+        "slurp",
+        "swappy",
+        "swww",
+        "wl-clipboard",
+        "xdg-user-dirs",
+        "xdg-utils",
+        "yad",
+      ]
+    state: present
+
+- name: "[INSTALL] cava"
+  shell:
+    cmd: "yay -S --answerclean Y --answerdiff N --noconfirm --noprogressbar cava"
+  become: true
+  become_user: spuxy
+
+- name: "[INSTALL] aylurs"
+  shell:
+    cmd: "yay -S --answerclean Y --answerdiff N --noconfirm --noprogressbar aylurs-gtk-shell"
+  become: true
+  become_user: spuxy
+
+- name: "[INSTALL] pyprland"
+  shell:
+    cmd: "yay -S --answerclean Y --answerdiff N --noconfirm --noprogressbar pyprland" 
+  become: true
+  become_user: spuxy

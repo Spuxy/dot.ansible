@@ -1,4 +1,18 @@
 - name: Install packages
   community.general.pacman:
-    name: ["termshark", "wireshark-qt", "gimp", "xclip", "screenkey", "tldr", "discord", "ripgrep", "fd", "wget"]
+    name:
+      [
+        "termshark",
+        "wireshark-qt",
+        "gimp",
+        "xclip",
+        "screenkey",
+        "tldr",
+        "discord",
+        "ripgrep",
+        "fd",
+        "wget",
+        "jq",
+        "curl",
+      ]
     state: present

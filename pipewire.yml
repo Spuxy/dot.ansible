@@ -9,6 +9,7 @@
         - "{{ pkg4 }}"
         - "{{ pkg5 }}"
         - "{{ pkg6 }}"
+        - "{{ pkg7 }}"
       state: present
 
 - name: "[SYSTEMD] pipewire.socket"
@@ -46,3 +47,4 @@
     pkg4: "pipewire-alsa"
     pkg5: "wireplumber"
     pkg6: "pavucontrol"
+    pkg7: "pamixer"

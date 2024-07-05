@@ -1,32 +1,45 @@
 - name: "Fonts"
   block:
-  - name: "[INSTALL] - fontconfig"
-    community.general.pacman:
-      name:
-        - fontconfig
-      state: present
+    - name: "[INSTALL] - fontconfig"
+      community.general.pacman:
+        name:
+          - fontconfig
+        state: present
 
-  - name: "[CREATE DIRECTORY] - Nerd fonts"
-    ansible.builtin.file:
-      path: "{{ ansible_home }}/pkgs/nerd-fonts"
-      state: directory
+    - name: "[INSTALL] - ttf-sarasa-gothic-sc"
+      shell:
+        cmd: "yay -S --answerclean Y --answerdiff N --noconfirm --noprogressbar ttf-sarasa-gothic-sc"
+      become: true
+      become_user: spuxy
 
-  - name: "[GIT CLONE] - nerdfonts"
-    ansible.builtin.git:
-      repo: "https://github.com/ryanoasis/nerd-fonts"
-      dest: "{{ ansible_home }}/pkgs/nerd-fonts"
-      depth: 1
+    - name: "[INSTALL] - ttf-sarasa-gothic-nerd-fonts"
+      shell:
+        cmd: "yay -S --answerclean Y --answerdiff N --noconfirm --noprogressbar ttf-sarasa-gothic-nerd-fonts"
+      become: true
+      become_user: spuxy
 
-  - name: "[INSTALL] - nerdfonts"
-    ansible.builtin.command: "sh /home/spuxy/pkgs/nerd-fonts/install.sh"
-    delegate_to: 127.0.0.1
+    - name: "[INSTALL] - nerd-fonts-git"
+      shell:
+        cmd: "yay -S --answerclean Y --answerdiff N --noconfirm --noprogressbar nerd-fonts-git"
+      become: true
+      become_user: spuxy
 
-  - name: "[INSTALL] - nerdfonts"
-    ansible.builtin.command: "/home/spuxy/pkgs/nerd-fonts/install.sh"
-    delegate_to: 127.0.0.1
+    - name: "[INSTALL] - otf-font-awesome"
+      shell:
+        cmd: "yay -S --answerclean Y --answerdiff N --noconfirm --noprogressbar otf-font-awesome"
+      become: true
+      become_user: spuxy
 
-  - name: "[STOW] - fontconfig"
-    shell: "stow -d {{ ansible_dotfiles }} -S fonts"
-    vars:
-      pkg: "redshift"
+    - name: "[INSTALL] - ttf-font-awesome"
+      shell:
+        cmd: "yay -S --answerclean Y --answerdiff N --noconfirm --noprogressbar ttf-font-awesome"
+      become: true
+      become_user: spuxy
 
+    - name: "[CREATE DIRECTORY] - Nerd fonts"
+      ansible.builtin.file:
+        path: "{{ ansible_home }}/pkgs/nerd-fonts"
+        state: directory
+
+    - name: "[STOW] - fontconfig"
+      shell: "stow -d {{ ansible_dotfiles }} -S fonts"

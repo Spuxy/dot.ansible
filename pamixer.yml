@@ -1,11 +1,11 @@
-- name: "GTK"
+- name: "Pamixer"
   block:
   - name: "[INSTALL] - {{ pkg }}"
     community.general.pacman:
       name:
-        - "{{ pkg1 }}"
-        - "{{ pkg2 }}"
+        - "{{ pkg }}"
       state: present
+
   vars:
-    pkg1: "gtk4"
-    pkg2: "adwaita-icon-theme"
+    pkg: "pamixer"
+

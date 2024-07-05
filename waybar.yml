@@ -1,0 +1,10 @@
+- name: "WAYBAR"
+  block:
+  - name: "[INSTALL] - deps for waybar"
+    community.general.pacman:
+      name:
+        - "waybar"
+      state: present
+
+  - name: "[STOW] - waybar"
+    shell: "stow -d {{ ansible_dotfiles }} -S waybar"

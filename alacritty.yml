@@ -3,5 +3,6 @@
     name:
       - alacritty
     state: present
+
 - name: "[STOW] - Alacritty"
   shell: "stow -d {{ ansible_dotfiles }} -S alacritty"

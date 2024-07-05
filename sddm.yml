@@ -1,6 +1,6 @@
 - name: "SDDM"
   block:
-  - name: "[INSTALL] - {{ pkg1 }}"
+  - name: "[INSTALL] - sddm"
     community.general.pacman:
       name:
         - "{{ pkg1 }}"
@@ -9,13 +9,13 @@
         - "{{ pkg4 }}"
       state: present
 
-  - name: "[SYSTEMD] sddm"
+  - name: "[SYSTEMD] enable sddm"
     ansible.builtin.systemd_service:
       name: sddm.service
       state: started
       enabled: true
 
-  - name: "[CREATE DIRECTORY] - sddm.conf.d"
+  - name: "[CREATE DIRECTORY] sddm.conf.d"
     ansible.builtin.file:
       path: "/etc/sddm.conf.d"
       state: directory
@@ -23,7 +23,7 @@
     become_user: root
     become_method: sudo
 
-  - name: "[CREATE DIRECTORY] - wayland-sessions"
+  - name: "[CREATE DIRECTORY] wayland-sessions"
     ansible.builtin.file:
       path: "/usr/share/wayland-sessions"
       state: directory
@@ -31,20 +31,35 @@
     become_user: root
     become_method: sudo
 
-  - name: "[STOW] - sddm"
+  - name: "[CHECK] dir exists for sddm theme"
+    stat: path=/usr/share/sddm/themes/dot.sddm
+    register: theme_dir
+
+  - name: "[STOW] - theme sddm"
     shell:
       chdir: "{{ ansible_home }}/.dotfiles/sddm"
       cmd: "stow -t /usr/share/sddm/themes theme"
+    when: not theme_dir.stat.exists
 
-  - name: "[STOW] - sddm"
+  - name: "[CHECK] dir exists for wayland session"
+    stat: path=/usr/share/wayland-sessions
+    register: wayland_sesion_dir
+
+  - name: "[STOW] - wayland-session sddm"
     shell:
       chdir: "{{ ansible_home }}/.dotfiles/sddm"
       cmd: "stow -t /usr/share/wayland-sessions wayland-sessions"
+    when: not wayland_sesion_dir.stat.exists
+
+  - name: "[CHECK] dir exists for sddm conf.d"
+    stat: path=/etc/sddm.conf.d
+    register: sddm_conf_dir
 
   - name: "[STOW] - sddm"
     shell:
       chdir: "{{ ansible_home }}/.dotfiles/sddm"
       cmd: "stow -t /etc/sddm.conf.d sddm.conf.d"
+    when: not sddm_conf_dir.stat.exists
 
   vars:
     pkg1: "sddm"

@@ -1,0 +1,49 @@
+- name: "wlogout"
+  block:
+  - name: "[INSTALL] - deps"
+    community.general.pacman:
+      name:
+        - "{{ dep1 }}"
+        - "{{ dep2 }}"
+        - "{{ dep3 }}"
+        - "{{ dep4 }}"
+        - "{{ dep5 }}"
+        - "{{ dep6 }}"
+      state: present
+
+  - name: "[GIT CLONE] - wlogout"
+    ansible.builtin.git:
+      repo: "https://github.com/ArtsyMacaw/wlogout.git"
+      dest: "{{ ansible_home }}/pkgs/wlogout"
+    become: true
+    become_user: '{{ ansible_user }}'
+
+  - name: "[BUILD] - wlogout"
+    ansible.builtin.command: 'meson build'
+    args:
+      chdir: '{{ ansible_home }}/pkgs/wlogout'
+    become: true
+    become_user: '{{ ansible_user }}'
+
+  - name: "[BUILD] - wlogout"
+    ansible.builtin.command: 'ninja -C build'
+    args:
+      chdir: '{{ ansible_home }}/pkgs/wlogout'
+    become: true
+    become_user: '{{ ansible_user }}'
+
+  - name: "[BUILD] - wlogout"
+    ansible.builtin.command: 'ninja -C build install'
+    args:
+      chdir: '{{ ansible_home }}/pkgs/wlogout'
+    become: true
+    become_user: 'root'
+    become_method: 'sudo'
+
+  vars:
+    dep1: "gobject-introspection"
+    dep2: "gtk-layer-shell"
+    dep3: "gtk3"
+    dep4: "meson"
+    dep5: "git"
+    dep6: "scdoc"

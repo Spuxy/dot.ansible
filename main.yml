@@ -17,11 +17,14 @@
 
     - include_tasks: ./plugins/stow.yml
 
-    - include_tasks: ./sddm.yml
-
-    - include_tasks: ./pipewire.yml
-    - include_tasks: ./neovim.yml
+    - include_tasks: ./hyprland-tools.yml
     - include_tasks: ./wallust.yml
+    - include_tasks: ./pamixer.yml
+    - include_tasks: ./waybar.yml
+    - include_tasks: ./wlogout.yml
+
+
+    - include_tasks: ./fonts.yml
     - include_tasks: ./swaync.yml
     - include_tasks: ./productivity-tools.yml
     # Pre-task
@@ -33,8 +36,7 @@
     - include_tasks: ./npm.yml
 
 
-    - include_tasks: ./yay.yml
-    - include_tasks: ./fonts.yml
+    # VYRESIT - include_tasks: ./yay.yml
     # Tools
     - include_tasks: ./alacritty.yml
     - include_tasks: ./atuin.yml
@@ -62,11 +64,13 @@
     - include_tasks: ./mpd.yml
     - include_tasks: ./mpv.yml
 
+    - include_tasks: ./neovim.yml
     - include_tasks: ./ncmpcpp.yml
     - include_tasks: ./neofetch.yml
     - include_tasks: ./npm.yml
     - include_tasks: ./nvidia.yml
 
+    - include_tasks: ./pipewire.yml
     - include_tasks: ./pacman.yml
     - include_tasks: ./picom.yml
     - include_tasks: ./polybar.yml
@@ -78,6 +82,7 @@
     - include_tasks: ./rofi.yml
     - include_tasks: ./russ.yml
 
+    - include_tasks: ./sddm.yml
     - include_tasks: ./scripts.yml
     # - include_tasks: ./spotify-tui.yml
     - include_tasks: ./spotifyd.yml
