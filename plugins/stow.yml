@@ -1,0 +1,30 @@
+- name: "PLUGIN STOW"
+  block:
+  - name: "[ANSIBLE PLUGIN] - stow"
+    ansible.builtin.git:
+      repo: 'https://github.com/Spuxy/ansible-stow.git'
+      dest: "{{ ansible_home }}/pkgs/ansible-stow"
+
+  - name: Create a directory if it does not exist
+    ansible.builtin.file:
+      path: "{{ ansible_home }}/.ansible"
+      state: directory
+      mode: '0755'
+
+  - name: Create a directory if it does not exist
+    ansible.builtin.file:
+      path: "{{ ansible_home }}/.ansible/plugins"
+      state: directory
+      mode: '0755'
+
+  - name: Create a directory if it does not exist
+    ansible.builtin.file:
+      path: "{{ ansible_home }}/.ansible/plugins/modules"
+      state: directory
+      mode: '0755'
+
+  - name: "[STOW] - {{ pkg }}"
+    shell: 
+      chdir: "{{ ansible_home }}/pkgs/ansible-stow"
+      cmd: "cp stow {{ ansible_home }}/.ansible/plugins/modules"
+

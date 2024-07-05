@@ -8,12 +8,41 @@
         - "{{ pkg3 }}"
         - "{{ pkg4 }}"
         - "{{ pkg5 }}"
+        - "{{ pkg6 }}"
       state: present
+
+- name: "[SYSTEMD] pipewire.socket"
+  ansible.builtin.systemd_service:
+    name: pipewire.socket
+    state: started
+    enabled: true
+    scope: user
+
+- name: "[SYSTEMD] pipewire.service"
+  ansible.builtin.systemd_service:
+    name: pipewire.service
+    state: started
+    enabled: true
+    scope: user
+
+- name: "[SYSTEMD] pipewire-pulse.socket"
+  ansible.builtin.systemd_service:
+    name:  pipewire-pulse.socket
+    state: started
+    enabled: true
+    scope: user
+
+- name: "[SYSTEMD] wireplumber.service"
+  ansible.builtin.systemd_service:
+    name: wireplumber.service
+    state: started
+    enabled: true
+    scope: user
 
   vars:
     pkg1: "pipewire"
     pkg2: "pipewire-pulse"
     pkg3: "pipewire-audio"
-    pkg4: "wireplumber"
-    pkg5: "pavucontrol"
-
+    pkg4: "pipewire-alsa"
+    pkg5: "wireplumber"
+    pkg6: "pavucontrol"

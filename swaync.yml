@@ -5,7 +5,9 @@
       name:
         - "{{ pkg }}"
       state: present
+
   - name: "[STOW] - {{ pkg }}"
     shell: "stow -d {{ ansible_dotfiles }} -S {{ pkg }}"
+
   vars:
     pkg: "swaync"

@@ -1,0 +1,8 @@
+- name: "wallust"
+  block:
+  - name: "[INSTALL] - wallust"
+    community.general.cargo:
+      name:
+        - "wallust"
+      state: present
+

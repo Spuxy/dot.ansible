@@ -1,7 +1,4 @@
 - name: Install packages
-  become: true
-  apt:
-    name: [ "tmux", "wireshark", "fzf","gimp", "xclip", "screenkey", "tldr", "ripgrep"]
-  tags:
-    - install
-    - productivity
+  community.general.pacman:
+    name: ["termshark", "wireshark-qt", "gimp", "xclip", "screenkey", "tldr", "discord", "ripgrep", "fd", "wget"]
+    state: present

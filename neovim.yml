@@ -1,10 +1,16 @@
-- name: Neovim
-  hosts: localhost
-  tasks:
-    - name: Full System Upgrade
-      community.general.pacman:
-        name:
-          - ranger
-          - neovim
-          - vim
-        state: present
+- name: "NEOVIM"
+  block:
+  - name: "[INSTALL] - {{ pkg }}"
+    community.general.pacman:
+      name:
+        - "{{ pkg }}"
+      state: present
+
+  - name: "[GIT CLONE] neovim"
+    ansible.builtin.git:
+      repo: "https://github.com/Spuxy/dot.vim.git"
+      dest: "{{ ansible_home }}/.config/nvim"
+
+  vars:
+    pkg: "neovim"
+

@@ -2,7 +2,7 @@
   hosts: localhost
   vars:
     - ansible_user: "spuxy"
-    - ansible_dotfiles: "/home/spuxy/dot"
+    - ansible_dotfiles: "/home/spuxy/.dotfiles"
     - ansible_home: "/home/spuxy"
     - ansible_personal_scripts: "/home/spuxy/.local/share/bin"
     - ansible_zsh: "/home/spuxy/.config/zsh"
@@ -15,6 +15,15 @@
       become_user: root
       become_method: sudo
 
+    - include_tasks: ./plugins/stow.yml
+
+    - include_tasks: ./sddm.yml
+
+    - include_tasks: ./pipewire.yml
+    - include_tasks: ./neovim.yml
+    - include_tasks: ./wallust.yml
+    - include_tasks: ./swaync.yml
+    - include_tasks: ./productivity-tools.yml
     # Pre-task
     - include_tasks: ./stow.yml
 
@@ -24,7 +33,6 @@
     - include_tasks: ./npm.yml
 
 
-    - include_tasks: ./nvidia.yml
     - include_tasks: ./yay.yml
     - include_tasks: ./fonts.yml
     # Tools
@@ -57,6 +65,7 @@
     - include_tasks: ./ncmpcpp.yml
     - include_tasks: ./neofetch.yml
     - include_tasks: ./npm.yml
+    - include_tasks: ./nvidia.yml
 
     - include_tasks: ./pacman.yml
     - include_tasks: ./picom.yml

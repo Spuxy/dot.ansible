@@ -1,14 +1,53 @@
 - name: "SDDM"
   block:
-  - name: "[INSTALL] - {{ pkg }}"
+  - name: "[INSTALL] - {{ pkg1 }}"
     community.general.pacman:
       name:
-        - "{{ pkg }}"
+        - "{{ pkg1 }}"
+        - "{{ pkg2 }}"
+        - "{{ pkg3 }}"
+        - "{{ pkg4 }}"
       state: present
-  - name: "[[CONFIGURATION]] - {{ pkg }}"
-    shell: "mkdir -p /usr/share/xsessions"
-  - name: "[STOW] - {{ pkg }}"
-    shell: "stow -d {{ ansible_dotfiles }} -S {{ pkg }}"
-  vars:
-    pkg: "sddm"
 
+  - name: "[SYSTEMD] sddm"
+    ansible.builtin.systemd_service:
+      name: sddm.service
+      state: started
+      enabled: true
+
+  - name: "[CREATE DIRECTORY] - sddm.conf.d"
+    ansible.builtin.file:
+      path: "/etc/sddm.conf.d"
+      state: directory
+    become: yes
+    become_user: root
+    become_method: sudo
+
+  - name: "[CREATE DIRECTORY] - wayland-sessions"
+    ansible.builtin.file:
+      path: "/usr/share/wayland-sessions"
+      state: directory
+    become: yes
+    become_user: root
+    become_method: sudo
+
+  - name: "[STOW] - sddm"
+    shell:
+      chdir: "{{ ansible_home }}/.dotfiles/sddm"
+      cmd: "stow -t /usr/share/sddm/themes theme"
+
+  - name: "[STOW] - sddm"
+    shell:
+      chdir: "{{ ansible_home }}/.dotfiles/sddm"
+      cmd: "stow -t /usr/share/wayland-sessions wayland-sessions"
+
+  - name: "[STOW] - sddm"
+    shell:
+      chdir: "{{ ansible_home }}/.dotfiles/sddm"
+      cmd: "stow -t /etc/sddm.conf.d sddm.conf.d"
+
+  vars:
+    pkg1: "sddm"
+    pkg2: "qt6-5compat"
+    pkg3: "qt6-declarative"
+    pkg4: "qt6-svg" 
