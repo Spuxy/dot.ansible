@@ -23,9 +23,8 @@
   become_user: 'root'
   become_method: 'sudo'
 
-- name: Install packages
-  ansible.builtin.pip:
-    name: howdoi
+- name: "isntalling an pkg"
+  shell:
+    cmd: "yay -S --answerclean Y --answerdiff N --noconfirm --noprogressbar howdoi"
   become: true
-  become_user: 'root'
-  become_method: 'sudo'
+  become_user: spuxy

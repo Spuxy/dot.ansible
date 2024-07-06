@@ -1,3 +1,7 @@
+
+
+
+
+
 #!/bin/bash
-ansible-playbook ./main.yml 
-# -K password
+sudo ansible-playbook ./main.yml --k password

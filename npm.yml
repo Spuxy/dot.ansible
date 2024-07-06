@@ -1,5 +1,0 @@
-- name: "[INSTALL] - NPM"
-  community.general.pacman:
-    name:
-      - npm
-    state: present

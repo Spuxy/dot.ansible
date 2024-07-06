@@ -1,4 +1,4 @@
-- name: Test
+- name: Run this task baby !
   hosts: localhost
   vars:
     - ansible_user: "spuxy"
@@ -15,19 +15,19 @@
     #  become_user: root
     #  become_method: sudo
 
+    # Languages
+    - include_tasks: ./languages/python.yml
+    - include_tasks: ./languages/go.yml
+    - include_tasks: ./languages/rust.yml
+    - include_tasks: ./languages/npm.yml
+    - include_tasks: ./languages/ruby.yml
+
     # Pre tasks
     - include_tasks: ./plugins/stow.yml
-    - include_tasks: ./zsh.yml
     - include_tasks: ./yay.yml
     - include_tasks: ./stow.yml
     - include_tasks: ./productivity-tools.yml
     - include_tasks: ./hyprland-tools.yml
-
-    # Languages
-    - include_tasks: ./go.yml
-    - include_tasks: ./rust.yml
-    - include_tasks: ./npm.yml
-    - include_tasks: ./ruby.yml
 
     # Tools
     - include_tasks: ./alacritty.yml

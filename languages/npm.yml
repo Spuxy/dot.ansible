@@ -1,7 +1,7 @@
-- name: "[INSTALL] - Rust"
+- name: "install npm"
   community.general.pacman:
     name:
-      - rust
+      - npm
     state: present
   become: true
   become_user: 'root'

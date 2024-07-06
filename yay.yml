@@ -1,21 +1,30 @@
 - name: "yay"
   block:
-  - name: "[GIT CLONE] - yay"
-    ansible.builtin.git:
-      repo: "https://aur.archlinux.org/yay.git"
-      dest: "{{ ansible_home }}/Pkgs/yay"
-    become: yes
-    become_user: spuxy
+    - name: check if yay exists
+      stat:
+        path: /usr/bin/yay
+      register: yay_bin
 
-  - name: "[BUILD] - yay"
-    shell: 
-      chdir: "{{ ansible_home }}/Pkgs/yay"
-      cmd: "makepkg -si --noconfirm"
-    become: yes
-    become_user: spuxy
+    - name: "cloning yay's repo"
+      ansible.builtin.git:
+        repo: "https://aur.archlinux.org/yay.git"
+        dest: "{{ ansible_home }}/Pkgs/yay"
+      become: yes
+      become_user: "{{ ansible_user }}"
+      when: not yay_bin.stat.exists
 
-  - name: "[UPDATE & UPGRADE] - yay"
-    shell: 
-      cmd: "yay -Syu"
-    become: yes
-    become_user: spuxy
+    - name: "building an yay"
+      shell: 
+        chdir: "{{ ansible_home }}/Pkgs/yay"
+        cmd: "makepkg -si --noconfirm"
+      become: yes
+      become_user: "{{ ansible_user }}"
+      when: not yay_bin.stat.exists
+
+    - name: "update & upgrade"
+      shell: 
+        cmd: "yay -Syu"
+      become: yes
+      become_user: "{{ ansible_user }}"
+      when: not yay_bin.stat.exists
+
