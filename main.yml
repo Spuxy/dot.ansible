@@ -17,6 +17,7 @@
 
     # Pre tasks
     - include_tasks: ./plugins/stow.yml
+    - include_tasks: ./zsh.yml
     - include_tasks: ./yay.yml
     - include_tasks: ./stow.yml
     - include_tasks: ./productivity-tools.yml
@@ -62,6 +63,7 @@
     - include_tasks: ./rofi.yml
 
     - include_tasks: ./sddm.yml
+    - include_tasks: ./swww.yml
     - include_tasks: ./scripts.yml
     - include_tasks: ./spotify.yml
     - include_tasks: ./swaync.yml

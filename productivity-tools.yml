@@ -22,3 +22,10 @@
   become: true
   become_user: 'root'
   become_method: 'sudo'
+
+- name: Install packages
+  ansible.builtin.pip:
+    name: howdoi
+  become: true
+  become_user: 'root'
+  become_method: 'sudo'

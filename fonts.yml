@@ -36,10 +36,11 @@
       become: true
       become_user: spuxy
 
-    - name: "[CREATE DIRECTORY] - Nerd fonts"
-      ansible.builtin.file:
-        path: "{{ ansible_home }}/Pkgs/nerd-fonts"
-        state: directory
+    - name: "[INSTALL] - ttf-font-awesome"
+      shell:
+        cmd: "yay -S --answerclean Y --answerdiff N --noconfirm --noprogressbar ttf-firacode"
+      become: true
+      become_user: spuxy
 
     - name: "[STOW] - fontconfig"
       shell: "stow -d {{ ansible_dotfiles }} -S fonts"

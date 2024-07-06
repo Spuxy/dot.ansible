@@ -1,0 +1,19 @@
+- name: "Swww"
+  block:
+  - name: "git cloning an repo"
+    ansible.builtin.git:
+      repo: "https://github.com/LGFae/swww.git"
+      dest: "{{ ansible_home }}/Pkgs/swww"
+
+  - name: "building an pkg"
+    shell: 
+      chdir: "{{ ansible_home }}/Pkgs/swww"
+      cmd: "cargo build --release"
+
+  - name: "move the binary into /usr/bin"
+    shell: 
+      chdir: "{{ ansible_home }}/Pkgs/swww/target/release"
+      cmd: "mv swww swww-daemon /usr/bin"
+    become: true
+    become_user: 'root'
+    become_method: 'sudo'
