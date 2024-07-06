@@ -1,10 +1,10 @@
-- name: "[INSTALL] - goread"
-  shell:
-    chdir: "{{ ansible_home }}/pkgs"
-    cmd: "git clone https://github.com/TypicalAM/goread"
-    chdir: "{{ ansible_home }}/pkgs/goread"
-    cmd: "go build ."
-    cmd: "mv goread {{ lookup()}}"
+- name: "Goread"
+  block:
+    - name: "installing an pkg"
+      shell:
+        cmd: "yay -S --answerclean Y --answerdiff N --noconfirm --noprogressbar goread"
+      become: true
+      become_user: spuxy
 
-- name: "[STOW] - goread"
-  shell: "stow -d {{ ansible_dotfiles }} -S goread"
+    - name: "copying a dotfiles"
+      shell: "stow -d {{ ansible_dotfiles }} -S goread"

@@ -1,7 +1,0 @@
-- name: "[INSTALL] - lf"
-  community.general.pacman:
-    name:
-      - lf
-    state: present
-- name: "[STOW] - lf"
-  shell: "stow -d {{ ansible_dotfiles }} -S lf"

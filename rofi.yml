@@ -1,11 +1,12 @@
 - name: "Rofi"
   block:
-  - name: "[INSTALL] - {{ pkg }}"
-    community.general.pacman:
-      name:
-        - "{{ pkg }}"
-      state: present
-  - name: "[STOW] - {{ pkg }}"
-    shell: "stow -d {{ ansible_dotfiles }} -S {{ pkg }}"
-  vars:
-    pkg: "rofi"
+    - name: "installation an pkg"
+      community.general.pacman:
+        name: "rofi-wayland"
+        state: present
+      become: true
+      become_user: "root"
+      become_method: "sudo"
+
+    - name: "Copying an dotfiles"
+      shell: "stow -d {{ ansible_dotfiles }} -S rofi"

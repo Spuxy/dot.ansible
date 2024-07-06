@@ -40,12 +40,12 @@
   - name: "GIT CLONE - Hyprland"
     ansible.builtin.git:
       repo: "https://github.com/hyprwm/Hyprland"
-      dest: "{{ ansible_home }}/pkgs/Hyprland"
+      dest: "{{ ansible_home }}/Pkgs/Hyprland"
       recursive: true
 
   - name: "BUILD - Hyprland"
     shell: 
-      chdir: "{{ ansible_home }}/pkgs/Hyprland"
+      chdir: "{{ ansible_home }}/Pkgs/Hyprland"
       cmd: "make all && sudo make install"
 
   - name: "STOW - Hyprland"

@@ -3,7 +3,7 @@
   - name: "[GIT CLONE] - wallust"
     ansible.builtin.git:
       repo: "https://codeberg.org/explosion-mental/wallust.git"
-      dest: "{{ ansible_home }}/pkgs/wallust"
+      dest: "{{ ansible_home }}/Pkgs/wallust"
       version: dev
     become: true
     become_user: '{{ ansible_user }}'
@@ -13,6 +13,6 @@
     become_user: 'root'
     become_method: 'sudo'
     shell: 
-      chdir: '{{ ansible_home }}/pkgs/wallust'
+      chdir: '{{ ansible_home }}/Pkgs/wallust'
       cmd: "make install"
 

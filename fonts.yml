@@ -38,7 +38,7 @@
 
     - name: "[CREATE DIRECTORY] - Nerd fonts"
       ansible.builtin.file:
-        path: "{{ ansible_home }}/pkgs/nerd-fonts"
+        path: "{{ ansible_home }}/Pkgs/nerd-fonts"
         state: directory
 
     - name: "[STOW] - fontconfig"

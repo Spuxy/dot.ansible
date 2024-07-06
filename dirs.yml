@@ -58,7 +58,7 @@
 
 - name: "[CREATE DIRECTORY] - Pkgs"
   ansible.builtin.file:
-    path: "{{ ansible_home }}/pkgs"
+    path: "{{ ansible_home }}/Pkgs"
     state: directory
   become: yes
   become_user: spuxy
@@ -66,6 +66,13 @@
 - name: "[CREATE DIRECTORY] - Scripts"
   ansible.builtin.file:
     path: "{{ ansible_home }}/.local/share/bin"
+    state: directory
+  become: yes
+  become_user: spuxy
+
+- name: "[CREATE DIRECTORY] - Trash"
+  ansible.builtin.file:
+    path: "{{ ansible_home }}/Trash"
     state: directory
   become: yes
   become_user: spuxy

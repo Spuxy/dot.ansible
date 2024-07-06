@@ -1,7 +1,13 @@
-- name: "[INSTALL] - ranger"
-  community.general.pacman:
-    name:
-      - ranger 
-    state: present
-- name: "[STOW] - ranger"
-  shell: "stow -d {{ ansible_dotfiles }} -S ranger"
+- name: "Ranger"
+  block:
+    - name: "installing an pkg"
+      community.general.pacman:
+        name:
+          - ranger 
+        state: present
+      become: true
+      become_user: "root"
+      become_method: "sudo"
+
+    - name: "copying a dotfiles"
+      shell: "stow -d {{ ansible_dotfiles }} -S ranger"

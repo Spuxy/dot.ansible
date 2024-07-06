@@ -1,50 +1,59 @@
-- name: "PIPEWIRE"
+- name: "Pipewire"
   block:
-  - name: "[INSTALL] - pipewire"
-    community.general.pacman:
-      name:
-        - "{{ pkg1 }}"
-        - "{{ pkg2 }}"
-        - "{{ pkg3 }}"
-        - "{{ pkg4 }}"
-        - "{{ pkg5 }}"
-        - "{{ pkg6 }}"
-        - "{{ pkg7 }}"
-      state: present
+    - name: "installation sounds pkgs"
+      community.general.pacman:
+        name:
+          [
+            "pipewire",
+            "pipewire-pulse",
+            "pipewire-audio",
+            "pipewire-alsa",
+            "wireplumber",
+            "pavucontrol",
+            "pamixer",
+          ]
+        state: present
+      become: true
+      become_user: "root"
+      become_method: "sudo"
 
-- name: "[SYSTEMD] pipewire.socket"
+- name: "enable systemd pipewire.socket"
   ansible.builtin.systemd_service:
-    name: pipewire.socket
+    name: "pipewire.socket"
     state: started
     enabled: true
     scope: user
+  become: true
+  become_user: "{{ ansible_user }}"
 
-- name: "[SYSTEMD] pipewire.service"
+- name: "enable systemd pipewire.service"
   ansible.builtin.systemd_service:
-    name: pipewire.service
-    state: started
+    name: "pipewire.service"
     enabled: true
     scope: user
+  become: true
+  become_user: "{{ ansible_user }}"
 
-- name: "[SYSTEMD] pipewire-pulse.socket"
+- name: "enable systemd pipewire-pulse.service"
   ansible.builtin.systemd_service:
-    name:  pipewire-pulse.socket
-    state: started
+    name: "pipewire-pulse.service"
     enabled: true
     scope: user
+  become: true
+  become_user: "{{ ansible_user }}"
 
-- name: "[SYSTEMD] wireplumber.service"
+- name: "enable systemd pipewire-pulse.socket"
   ansible.builtin.systemd_service:
-    name: wireplumber.service
-    state: started
+    name: "pipewire-pulse.socket"
     enabled: true
     scope: user
+  become: true
+  become_user: "{{ ansible_user }}"
 
-  vars:
-    pkg1: "pipewire"
-    pkg2: "pipewire-pulse"
-    pkg3: "pipewire-audio"
-    pkg4: "pipewire-alsa"
-    pkg5: "wireplumber"
-    pkg6: "pavucontrol"
-    pkg7: "pamixer"
+- name: "enable systemd wireplumber.service"
+  ansible.builtin.systemd_service:
+    name: "wireplumber.service"
+    enabled: true
+    scope: user
+  become: true
+  become_user: "{{ ansible_user }}"

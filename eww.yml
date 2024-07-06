@@ -3,14 +3,14 @@
   - name: "GIT CLONE - eww"
     ansible.builtin.git:
       repo: "https://github.com/elkowar/eww"
-      dest: "{{ ansible_home }}/pkgs/eww"
+      dest: "{{ ansible_home }}/Pkgs/eww"
 
   - name: "BUILD - eww"
     shell: 
-      chdir: "{{ ansible_home }}/pkgs/eww"
+      chdir: "{{ ansible_home }}/Pkgs/eww"
       cmd: "cargo build --release --no-default-features --features=wayland"
 
       #- name: "Change permission - eww"
       #shell: 
-      #chdir: "{{ ansible_home }}/pkgs/eww"
+      #chdir: "{{ ansible_home }}/Pkgs/eww"
       #cmd: "chmod +x ./eww"

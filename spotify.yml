@@ -1,0 +1,32 @@
+- name: "Spotify"
+  block:
+    - name: "installing an pkg"
+      community.general.pacman:
+        name:
+          - "spotify"
+          - "spotifyd"
+        state: present
+      become: true
+      become_user: "root"
+      become_method: "sudo"
+
+    - name: "installing an pkg"
+      shell:
+        cmd: "yay -S --answerclean Y --answerdiff N --noconfirm --noprogressbar spotify-tui"
+      become: true
+      become_user: spuxy
+
+    - name: "copying a dotfiles"
+      shell: "stow -d {{ ansible_dotfiles }} -S spotifyd"
+
+    - name: "copying a dotfiles"
+      shell: "stow -d {{ ansible_dotfiles }} -S spotify-tui"
+
+    - name: "enable systemd spotifyd.service"
+      ansible.builtin.systemd_service:
+        name: "spotifyd.service"
+        state: started
+        enabled: true
+        scope: user
+      become: true
+      become_user: "{{ ansible_user }}"

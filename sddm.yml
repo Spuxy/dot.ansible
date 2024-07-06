@@ -8,12 +8,17 @@
         - "{{ pkg3 }}"
         - "{{ pkg4 }}"
       state: present
+    become: true
+    become_user: "root"
+    become_method: "sudo"
 
   - name: "[SYSTEMD] enable sddm"
     ansible.builtin.systemd_service:
       name: sddm.service
       state: started
       enabled: true
+    become: true
+    become_user: "{{ ansible_user }}"
 
   - name: "[CREATE DIRECTORY] sddm.conf.d"
     ansible.builtin.file:

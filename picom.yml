@@ -1,7 +1,13 @@
-- name: "[INSTALL] - picom"
-  community.general.pacman:
-    name:
-      - picom 
-    state: present
-- name: "[STOW] - picom"
-  shell: "stow -d {{ ansible_dotfiles }} -S picom"
+- name: "Picom"
+  block:
+    - name: "installing an pkg"
+      community.general.pacman:
+        name:
+          - picom 
+        state: present
+      become: true
+      become_user: "root"
+      become_method: "sudo"
+
+    - name: "copying a dotfiles"
+      shell: "stow -d {{ ansible_dotfiles }} -S picom"

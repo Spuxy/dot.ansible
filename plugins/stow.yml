@@ -3,7 +3,7 @@
   - name: "[ANSIBLE PLUGIN] - stow"
     ansible.builtin.git:
       repo: 'https://github.com/Spuxy/ansible-stow.git'
-      dest: "{{ ansible_home }}/pkgs/ansible-stow"
+      dest: "{{ ansible_home }}/Pkgs/ansible-stow"
 
   - name: Create a directory if it does not exist
     ansible.builtin.file:
@@ -25,6 +25,6 @@
 
   - name: "[STOW] - {{ pkg }}"
     shell: 
-      chdir: "{{ ansible_home }}/pkgs/ansible-stow"
+      chdir: "{{ ansible_home }}/Pkgs/ansible-stow"
       cmd: "cp stow {{ ansible_home }}/.ansible/plugins/modules"
 

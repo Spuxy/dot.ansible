@@ -1,7 +1,0 @@
-- name: "[INSTALL] - polybar"
-  community.general.pacman:
-    name:
-      - polybar 
-    state: present
-- name: "[STOW] - polybar"
-  shell: "stow -d {{ ansible_dotfiles }} -S polybar"

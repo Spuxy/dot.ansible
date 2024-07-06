@@ -1,12 +1,13 @@
 - name: "Redshift"
   block:
-  - name: "[INSTALL] - {{ pkg }}"
-    community.general.pacman:
-      name:
-        - "{{ pkg }}"
-      state: present
-  - name: "[STOW] - {{ pkg }}"
-    shell: "stow -d {{ ansible_dotfiles }} -S {{ pkg }}"
-  vars:
-    pkg: "redshift"
+    - name: "installing an pkg"
+      community.general.pacman:
+        name:
+          - "redshift"
+        state: present
+      become: true
+      become_user: "root"
+      become_method: "sudo"
 
+    - name: "copying a dotfiles"
+      shell: "stow -d {{ ansible_dotfiles }} -S redshift"

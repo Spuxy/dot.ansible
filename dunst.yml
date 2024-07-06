@@ -1,7 +1,0 @@
-- name: "[INSTALL] - dunst"
-  community.general.pacman:
-    name:
-      - dunst
-    state: present
-- name: "[STOW] - dunst"
-  shell: "stow -d {{ ansible_dotfiles }} -S dunst"

@@ -1,8 +1,0 @@
-- name: "[INSTALL] - fzf"
-  community.general.pacman:
-    name:
-      - fzf
-    state: present
-  become: true
-  become_user: 'root'
-  become_method: 'sudo'

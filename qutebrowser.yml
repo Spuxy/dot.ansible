@@ -1,7 +1,13 @@
-- name: "[INSTALL] - qutebrowser"
-  community.general.pacman:
-    name:
-      - qutebrowser 
-    state: present
-- name: "[STOW] - qutebrowser"
-  shell: "stow -d {{ ansible_dotfiles }} -S qutebrowser"
+- name: "Qutebrowser"
+  block:
+    - name: "installing an pkg"
+      community.general.pacman:
+        name:
+          - qutebrowser
+        state: present
+      become: true
+      become_user: "root"
+      become_method: "sudo"
+
+    - name: "copying a dotfiles"
+      shell: "stow -d {{ ansible_dotfiles }} -S qutebrowser"

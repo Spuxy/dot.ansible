@@ -1,16 +1,14 @@
 - name: "Swaync"
   block:
-  - name: "[INSTALL] - {{ pkg }}"
+  - name: "installing an pkg"
     community.general.pacman:
       name:
-        - "{{ pkg }}"
+        - "swaync"
       state: present
     become: true
     become_user: 'root'
     become_method: 'sudo'
 
-  - name: "[STOW] - {{ pkg }}"
-    shell: "stow -d {{ ansible_dotfiles }} -S {{ pkg }}"
+  - name: "copying a dotfiles"
+    shell: "stow -d {{ ansible_dotfiles }} -S swaync"
 
-  vars:
-    pkg: "swaync"

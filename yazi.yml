@@ -1,8 +1,13 @@
-- name: Neovim
-  hosts: localhost
-  tasks:
-    - name: Filesystem Manager
+- name: "Yazi"
+  block:
+    - name: "installing an pkg"
       community.general.pacman:
         name:
-          - yazi
+          - "yazi"
         state: present
+      become: true
+      become_user: "root"
+      become_method: "sudo"
+
+    - name: "copying a dotfiles"
+      shell: "stow -d {{ ansible_dotfiles }} -S yazi"
