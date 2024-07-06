@@ -1,7 +1,7 @@
-- name: "[INSTALL] - Rust"
+- name: "INSTALL - Ruby"
   community.general.pacman:
     name:
-      - rust
+      - "ruby"
     state: present
   become: true
   become_user: 'root'

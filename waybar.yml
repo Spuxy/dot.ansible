@@ -5,6 +5,9 @@
       name:
         - "waybar"
       state: present
+    become: true
+    become_user: 'root'
+    become_method: 'sudo'
 
   - name: "[STOW] - waybar"
     shell: "stow -d {{ ansible_dotfiles }} -S waybar"

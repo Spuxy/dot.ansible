@@ -8,11 +8,16 @@
         "xclip",
         "screenkey",
         "tldr",
-        "discord",
         "ripgrep",
         "fd",
         "wget",
         "jq",
         "curl",
+        "discord",
+        "bottom",
+        "calcurse",
       ]
     state: present
+  become: true
+  become_user: 'root'
+  become_method: 'sudo'

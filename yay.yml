@@ -19,9 +19,3 @@
       cmd: "yay -Syu"
     become: yes
     become_user: spuxy
-
-  - name: "UNCOMMENT PACMAN.CONF"
-    ansible.builtin.replace:
-      path: /home/spuxy/kokotina
-      regexp: "^#[multilib]"
-      replace: "Picovuina"

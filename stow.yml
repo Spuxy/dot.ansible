@@ -3,3 +3,6 @@
     name:
       - stow
     state: present
+  become: true
+  become_user: 'root'
+  become_method: 'sudo'

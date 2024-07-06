@@ -3,5 +3,9 @@
     name:
       - conky
     state: present
+  become: true
+  become_user: 'root'
+  become_method: 'sudo'
+
 - name: "[STOW] - conky"
   shell: "stow -d {{ ansible_dotfiles }} -S conky"

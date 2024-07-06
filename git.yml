@@ -1,7 +1,11 @@
-- name: "[INSTALL] - git"
+- name: "INSTALL - git"
   community.general.pacman:
     name:
       - git
     state: present
+  become: true
+  become_user: 'root'
+  become_method: 'sudo'
+
 - name: "[STOW] - git"
   shell: "stow -d {{ ansible_dotfiles }} -S git"

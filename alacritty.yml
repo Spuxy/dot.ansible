@@ -3,6 +3,9 @@
     name:
       - alacritty
     state: present
+  become: true
+  become_user: 'root'
+  become_method: 'sudo'
 
 - name: "[STOW] - Alacritty"
   shell: "stow -d {{ ansible_dotfiles }} -S alacritty"

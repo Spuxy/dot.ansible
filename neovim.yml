@@ -5,11 +5,17 @@
       name:
         - "{{ pkg }}"
       state: present
+    become: true
+    become_user: 'root'
+    become_method: 'sudo'
 
   - name: "[GIT CLONE] neovim"
     ansible.builtin.git:
       repo: "https://github.com/Spuxy/dot.vim.git"
       dest: "{{ ansible_home }}/.config/nvim"
+    become: true
+    become_user: 'root'
+    become_method: 'sudo'
 
   vars:
     pkg: "neovim"

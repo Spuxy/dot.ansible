@@ -1,6 +1,6 @@
 - name: "Hyprland"
   block:
-  - name: "[INSTALL] - {{ pkg }}"
+  - name: "INSTALL - Hyprland"
     community.general.pacman:
       name:
         - "gdb"
@@ -33,15 +33,20 @@
         - "hyprlang"
         - "hyprcursor"
         - "hyprwayland-scanner"
-        - "xcb-utils-errors"
+        #- "xcb-utils-errors"
       executable: yay
       state: present
 
-  - name: "[STOW] - {{ pkg }}"
-    shell: "git clone --recursive https://github.com/hyprwm/Hyprland"
+  - name: "GIT CLONE - Hyprland"
+    ansible.builtin.git:
+      repo: "https://github.com/hyprwm/Hyprland"
+      dest: "{{ ansible_home }}/pkgs/Hyprland"
+      recursive: true
 
-  - name: "[STOW] - {{ pkg }}"
-    shell: "make all && sudo make install"
+  - name: "BUILD - Hyprland"
+    shell: 
+      chdir: "{{ ansible_home }}/pkgs/Hyprland"
+      cmd: "make all && sudo make install"
 
-  - name: "[STOW] - {{ pkg }}"
-    shell: "stow -d {{ ansible_dotfiles }} -S {{ pkg }}"
+  - name: "STOW - Hyprland"
+    shell: "stow -d {{ ansible_dotfiles }} -S hyprland"

@@ -10,6 +10,9 @@
         - "{{ dep5 }}"
         - "{{ dep6 }}"
       state: present
+    become: true
+    become_user: 'root'
+    become_method: 'sudo'
 
   - name: "[GIT CLONE] - wlogout"
     ansible.builtin.git:

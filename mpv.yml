@@ -3,5 +3,9 @@
     name:
       - mpv
     state: present
+  become: true
+  become_user: 'root'
+  become_method: 'sudo'
+
 - name: "[STOW] - mpv"
   shell: "stow -d {{ ansible_dotfiles }} -S mpv"

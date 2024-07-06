@@ -5,6 +5,9 @@
       name:
         - "{{ pkg }}"
       state: present
+    become: true
+    become_user: 'root'
+    become_method: 'sudo'
 
   - name: "[STOW] - {{ pkg }}"
     shell: "stow -d {{ ansible_dotfiles }} -S {{ pkg }}"

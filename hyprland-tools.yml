@@ -43,21 +43,24 @@
         "yad",
       ]
     state: present
+  become: true
+  become_user: 'root'
+  become_method: 'sudo'
 
 - name: "[INSTALL] cava"
   shell:
     cmd: "yay -S --answerclean Y --answerdiff N --noconfirm --noprogressbar cava"
   become: true
-  become_user: spuxy
+  become_user: 'spuxy'
 
 - name: "[INSTALL] aylurs"
   shell:
     cmd: "yay -S --answerclean Y --answerdiff N --noconfirm --noprogressbar aylurs-gtk-shell"
   become: true
-  become_user: spuxy
+  become_user: 'spuxy'
 
 - name: "[INSTALL] pyprland"
   shell:
     cmd: "yay -S --answerclean Y --answerdiff N --noconfirm --noprogressbar pyprland" 
   become: true
-  become_user: spuxy
+  become_user: 'spuxy'

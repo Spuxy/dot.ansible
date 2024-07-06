@@ -3,5 +3,9 @@
     name:
       - atuin
     state: present
+  become: true
+  become_user: 'root'
+  become_method: 'sudo'
+
 - name: "[STOW] - Atuin"
   shell: "stow -d {{ ansible_dotfiles }} -S atuin"

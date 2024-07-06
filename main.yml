@@ -8,46 +8,42 @@
     - ansible_zsh: "/home/spuxy/.config/zsh"
     - ansible_pkgs: "/home/spuxy/pkgs"
   tasks:
-    - name: Full System Upgrade
-      community.general.pacman:
-        upgrade: true
-      become: true
-      become_user: root
-      become_method: sudo
+    #- name: Full System Upgrade
+    #  community.general.pacman:
+    #    upgrade: true
+    #  become: true
+    #  become_user: root
+    #  become_method: sudo
 
+    # Pre tasks
     - include_tasks: ./plugins/stow.yml
-
-    - include_tasks: ./hyprland-tools.yml
-    - include_tasks: ./wallust.yml
-    - include_tasks: ./pamixer.yml
-    - include_tasks: ./waybar.yml
-    - include_tasks: ./wlogout.yml
-
-
-    - include_tasks: ./fonts.yml
-    - include_tasks: ./swaync.yml
-    - include_tasks: ./productivity-tools.yml
-    # Pre-task
+    - include_tasks: ./yay.yml
     - include_tasks: ./stow.yml
 
     # Languages
     - include_tasks: ./go.yml
     - include_tasks: ./rust.yml
     - include_tasks: ./npm.yml
+    - include_tasks: ./ruby.yml
+
+    - include_tasks: ./hyprland-tools.yml
+    - include_tasks: ./wallust.yml
+    - include_tasks: ./waybar.yml
+    - include_tasks: ./wlogout.yml
 
 
-    # VYRESIT - include_tasks: ./yay.yml
+    #- include_tasks: ./fonts.yml
+    - include_tasks: ./swaync.yml
+    - include_tasks: ./productivity-tools.yml
+
+
     # Tools
     - include_tasks: ./alacritty.yml
     - include_tasks: ./atuin.yml
 
-    - include_tasks: ./bottom.yml
-
     - include_tasks: ./colorls.yml
-    - include_tasks: ./calcurse.yml
     - include_tasks: ./conky.yml
 
-    - include_tasks: ./discordo.yml
     - include_tasks: ./dunst.yml
 
     - include_tasks: ./eww.yml
@@ -58,8 +54,6 @@
     - include_tasks: ./gtk.yml
 
     - include_tasks: ./hyprland.yml
-
-    - include_tasks: ./lf.yml
 
     - include_tasks: ./mpd.yml
     - include_tasks: ./mpv.yml
