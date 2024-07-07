@@ -42,7 +42,7 @@
 
   - name: "[STOW] - theme sddm"
     shell:
-      chdir: "{{ ansible_home }}/.dotfiles/sddm"
+      chdir: "{{ ansible_dotfiles }}/sddm"
       cmd: "stow -t /usr/share/sddm/themes theme"
     when: not theme_dir.stat.exists
 
@@ -52,7 +52,7 @@
 
   - name: "[STOW] - wayland-session sddm"
     shell:
-      chdir: "{{ ansible_home }}/.dotfiles/sddm"
+      chdir: "{{ ansible_dotfiles }}/sddm"
       cmd: "stow -t /usr/share/wayland-sessions wayland-sessions"
     when: not wayland_sesion_dir.stat.exists
 
@@ -62,7 +62,7 @@
 
   - name: "[STOW] - sddm"
     shell:
-      chdir: "{{ ansible_home }}/.dotfiles/sddm"
+      chdir: "{{ ansible_dotfiles }}/sddm"
       cmd: "stow -t /etc/sddm.conf.d sddm.conf.d"
     when: not sddm_conf_dir.stat.exists
 

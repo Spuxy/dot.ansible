@@ -23,8 +23,15 @@
   become_user: 'root'
   become_method: 'sudo'
 
-- name: "isntalling an pkg"
+
+- name: check if howdoi binary exists
+  stat:
+    path: "/usr/bin/howdoi"
+  register: howdoi_bin
+
+- name: "isntalling an howdoi"
   shell:
     cmd: "yay -S --answerclean Y --answerdiff N --noconfirm --noprogressbar howdoi"
   become: true
   become_user: spuxy
+  when: not howdoi_bin.stat.exists

@@ -10,10 +10,30 @@
       chdir: "{{ ansible_home }}/Pkgs/swww"
       cmd: "cargo build --release"
 
-  - name: "move the binary into /usr/bin"
+  - name: check if swww bin exists
+    stat:
+      path: "/usr/bin/swww"
+    register: swww_bin
+
+  - name: check if swww-daemon bin exists
+    stat:
+      path: "/usr/bin/swww-daemon"
+    register: swwwdaemon_bin
+
+  - name: "move swww binary into /usr/bin"
     shell: 
       chdir: "{{ ansible_home }}/Pkgs/swww/target/release"
-      cmd: "mv swww swww-daemon /usr/bin"
+      cmd: "mv swww /usr/bin"
     become: true
     become_user: 'root'
     become_method: 'sudo'
+    when: not swww_bin.stat.exists
+
+  - name: "move swww-daemon binary into /usr/bin"
+    shell: 
+      chdir: "{{ ansible_home }}/Pkgs/swww/target/release"
+      cmd: "mv swww-daemon /usr/bin"
+    become: true
+    become_user: 'root'
+    become_method: 'sudo'
+    when: not swwwdaemon_bin.stat.exists

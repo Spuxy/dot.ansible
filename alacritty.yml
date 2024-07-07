@@ -1,4 +1,4 @@
-- name: "[INSTALL] - Alacritty"
+- name: "installing an alacritty"
   community.general.pacman:
     name:
       - alacritty

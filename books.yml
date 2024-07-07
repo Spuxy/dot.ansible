@@ -1,7 +1,0 @@
-- name: "[CREATE DIRECTORY] - books"
-  ansible.builtin.file:
-    path: "{{ ansible_home }}/Media/Books"
-    state: directory
-
-- name: "[STOW] - books"
-  shell: "stow -d {{ ansible_dotfiles }} -S books"

@@ -1,6 +1,6 @@
 - name: "Spotify"
   block:
-    - name: "installing an pkg"
+    - name: "installing an spotify"
       community.general.pacman:
         name:
           - "spotify"
@@ -10,17 +10,23 @@
       become_user: "root"
       become_method: "sudo"
 
-    - name: "installing an pkg"
+    - name: check if spotify-tui bin exists
+      stat:
+        path: "/usr/bin/spt"
+      register: spt_bin
+
+    - name: "installing an spotify-tui"
       shell:
         cmd: "yay -S --answerclean Y --answerdiff N --noconfirm --noprogressbar spotify-tui"
       become: true
       become_user: spuxy
+      when: not spt_bin.stat.exists
 
     - name: "copying a dotfiles"
       shell: "stow -d {{ ansible_dotfiles }} -S spotifyd"
 
-    - name: "copying a dotfiles"
-      shell: "stow -d {{ ansible_dotfiles }} -S spotify-tui"
+    # - name: "copying a dotfiles"
+    #   shell: "stow -d {{ ansible_dotfiles }} -S spotify-tui"
 
     - name: "enable systemd spotifyd.service"
       ansible.builtin.systemd_service:

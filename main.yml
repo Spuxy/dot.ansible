@@ -2,18 +2,24 @@
   hosts: localhost
   vars:
     - ansible_user: "spuxy"
-    - ansible_dotfiles: "/home/spuxy/.dotfiles"
+    - ansible_dotfiles: "/home/spuxy/dot.files"
     - ansible_home: "/home/spuxy"
     - ansible_personal_scripts: "/home/spuxy/.local/share/bin"
     - ansible_zsh: "/home/spuxy/.config/zsh"
     - ansible_pkgs: "/home/spuxy/Pkgs"
   tasks:
-    #- name: Full System Upgrade
-    #  community.general.pacman:
-    #    upgrade: true
-    #  become: true
-    #  become_user: root
-    #  become_method: sudo
+    # Dirs
+    - include_tasks: ./dirs.yml
+
+    # Yay
+    - include_tasks: ./yay.yml
+
+    - name: "Full System Upgrade"
+      community.general.pacman:
+        upgrade: true
+      become: true
+      become_user: "root"
+      become_method: "sudo"
 
     # Languages
     - include_tasks: ./languages/python.yml
@@ -24,17 +30,16 @@
 
     # Pre tasks
     - include_tasks: ./plugins/stow.yml
-    - include_tasks: ./yay.yml
     - include_tasks: ./stow.yml
     - include_tasks: ./productivity-tools.yml
     - include_tasks: ./hyprland-tools.yml
 
     # Tools
+    - include_tasks: ./ags.yml
     - include_tasks: ./alacritty.yml
     - include_tasks: ./atuin.yml
 
     - include_tasks: ./colorls.yml
-    - include_tasks: ./conky.yml
 
     - include_tasks: ./eww.yml
 
@@ -54,7 +59,6 @@
 
     - include_tasks: ./pipewire.yml
     - include_tasks: ./pacman.yml
-    - include_tasks: ./picom.yml
 
     - include_tasks: ./qutebrowser.yml
 
@@ -79,8 +83,3 @@
     - include_tasks: ./zathura.yml
     - include_tasks: ./zsh.yml
     - include_tasks: ./zoxide.yml
-
-    # Dirs
-    - include_tasks: ./dirs.yml
-    - include_tasks: ./books.yml
-

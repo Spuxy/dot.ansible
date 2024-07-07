@@ -49,12 +49,12 @@
   become: yes
   become_user: spuxy
 
-- name: "[CREATE DIRECTORY] - Dotfiles"
-  ansible.builtin.file:
-    path: "{{ ansible_home }}/.dotfiles"
-    state: directory
-  become: yes
-  become_user: spuxy
+# - name: "[CREATE DIRECTORY] - Dotfiles"
+#   ansible.builtin.file:
+#     path: "{{ ansible_home }}/.dotfiles"
+#     state: directory
+#   become: yes
+#   become_user: spuxy
 
 - name: "[CREATE DIRECTORY] - Pkgs"
   ansible.builtin.file:
