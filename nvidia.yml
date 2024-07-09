@@ -1,20 +1,15 @@
 - name: "NVIDIA"
   block:
-  - name: "[INSTALL] - nvidia"
+  - name: "🎮 installing an nvidia"
     community.general.pacman:
       name:
         - "{{ pkg1 }}"
         - "{{ pkg2 }}"
         - "{{ pkg3 }}"
+        - "{{ pkg4 }}"
       state: present
 
-      #- name: "[INITRAMFS CONF] - nvidia"
-      # shell: "sed -Ei 's/^(MODULES=\\([^\\)]*)\\)/\\1nvidia nvidia_modeset nvidia_uvm nvidia_drm)/' /home/spuxy/dot.ansible/testconf"
-      #become: true
-      #become_user: root
-      #become_method: sudo
-
-  - name: "[INITRAMFS CONF] - nvidia"
+  - name: "🎮 building kernel parameters into initramfs"
     ansible.builtin.replace:
       path: /etc/mkinitcpio.conf
       regexp: "^MODULES\\=\\(\\)"
@@ -23,7 +18,7 @@
     become_user: root
     become_method: sudo
 
-  - name: Update/create block if needed. Create file if not exists
+  - name: "🎮 create nvidia.conf for options"
     lineinfile:
       path: /etc/modprobe.d/nvidia.conf
       line: "options nvidia_drm modeset=1 fbdev=1"
@@ -32,7 +27,7 @@
     become_user: root
     become_method: sudo
 
-  - name: "[INITRAMFS BUILD] - nvidia"
+  - name: "🎮 building initramfs"
     command: mkinitcpio -P
     become: true
     become_user: root
@@ -41,5 +36,6 @@
   vars:
     pkg1: "nvidia"
     pkg2: "nvidia-utils"
-    pkg3: "egl-wayland"
+    pkg3: "nvidia-settings"
+    pkg4: "egl-wayland"
 
