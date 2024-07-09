@@ -1,6 +1,6 @@
 - name: "SDDM"
   block:
-  - name: "[INSTALL] - sddm"
+  - name: "🔑 installing an sddm"
     community.general.pacman:
       name:
         - "{{ pkg1 }}"
@@ -12,7 +12,7 @@
     become_user: "root"
     become_method: "sudo"
 
-  - name: "[SYSTEMD] enable sddm"
+  - name: "🔑 enable systemd sddm"
     ansible.builtin.systemd_service:
       name: sddm.service
       state: started
@@ -20,7 +20,7 @@
     become: true
     become_user: "{{ ansible_user }}"
 
-  - name: "[CREATE DIRECTORY] sddm.conf.d"
+  - name: "🔑 creating dir sddm.conf.d"
     ansible.builtin.file:
       path: "/etc/sddm.conf.d"
       state: directory
@@ -28,7 +28,7 @@
     become_user: root
     become_method: sudo
 
-  - name: "[CREATE DIRECTORY] wayland-sessions"
+  - name: "🔑 creating dir wayland-sessions"
     ansible.builtin.file:
       path: "/usr/share/wayland-sessions"
       state: directory
@@ -36,31 +36,31 @@
     become_user: root
     become_method: sudo
 
-  - name: "[CHECK] dir exists for sddm theme"
+  - name: "🔑 check if dir exists for sddm theme"
     stat: path=/usr/share/sddm/themes/dot.sddm
     register: theme_dir
 
-  - name: "[STOW] - theme sddm"
+  - name: "🔑 copying a dotfiles"
     shell:
       chdir: "{{ ansible_dotfiles }}/sddm"
       cmd: "stow -t /usr/share/sddm/themes theme"
     when: not theme_dir.stat.exists
 
-  - name: "[CHECK] dir exists for wayland session"
-    stat: path=/usr/share/wayland-sessions
+  - name: "🔑 check if dir exists for wayland session"
+    stat: path=/usr/share/wayland-sessions/hyprland.desktop
     register: wayland_sesion_dir
 
-  - name: "[STOW] - wayland-session sddm"
+  - name: "🔑 copying a dotfiles wayland-session"
     shell:
       chdir: "{{ ansible_dotfiles }}/sddm"
       cmd: "stow -t /usr/share/wayland-sessions wayland-sessions"
     when: not wayland_sesion_dir.stat.exists
 
-  - name: "[CHECK] dir exists for sddm conf.d"
-    stat: path=/etc/sddm.conf.d
+  - name: "🔑 check if dir exists for sddm conf.d"
+    stat: path=/etc/sddm.conf.d/theme.conf.user
     register: sddm_conf_dir
 
-  - name: "[STOW] - sddm"
+  - name: "🔑 copying a dotfiles sddm.conf.d"
     shell:
       chdir: "{{ ansible_dotfiles }}/sddm"
       cmd: "stow -t /etc/sddm.conf.d sddm.conf.d"
