@@ -43,6 +43,9 @@
     become_user: 'root'
     become_method: 'sudo'
 
+  - name: "copying a dotfiles"
+    shell: "stow -d {{ ansible_dotfiles }} -S wlogout"
+
   vars:
     dep1: "gobject-introspection"
     dep2: "gtk-layer-shell"
