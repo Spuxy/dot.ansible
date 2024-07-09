@@ -1,10 +1,12 @@
 - name: "GTK"
   block:
-  - name: "INSTALL - {{ pkg }}"
+  - name: "installing a packages"
     community.general.pacman:
       name:
         - "{{ pkg1 }}"
         - "{{ pkg2 }}"
+        - "{{ pkg3 }}"
+        - "{{ pkg4 }}"
       state: present
     become: true
     become_user: 'root'
@@ -13,3 +15,5 @@
   vars:
     pkg1: "gtk4"
     pkg2: "adwaita-icon-theme"
+    pkg3: "nautilus"
+    pkg4: "gtk-engine-murrine"

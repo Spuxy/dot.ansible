@@ -8,18 +8,19 @@
     - ansible_zsh: "/home/spuxy/.config/zsh"
     - ansible_pkgs: "/home/spuxy/Pkgs"
   tasks:
-    # Dirs
-    - include_tasks: ./dirs.yml
-
-    # Yay
-    - include_tasks: ./yay.yml
-
     - name: "Full System Upgrade"
       community.general.pacman:
         upgrade: true
       become: true
       become_user: "root"
       become_method: "sudo"
+      #
+    # Dirs
+    - include_tasks: ./dirs.yml
+
+    # Yay
+    - include_tasks: ./yay.yml
+    - include_tasks: ./pacman.yml
 
     # Languages
     - include_tasks: ./languages/python.yml
@@ -42,6 +43,9 @@
     - include_tasks: ./bluetooth.yml
 
     - include_tasks: ./eww.yml
+    - include_tasks: ./eza.yml
+
+    - include_tasks: ./fonts.yml
 
     - include_tasks: ./git.yml
     - include_tasks: ./gtk.yml
@@ -58,7 +62,6 @@
     - include_tasks: ./nvidia.yml
 
     - include_tasks: ./pipewire.yml
-    - include_tasks: ./pacman.yml
 
     - include_tasks: ./qutebrowser.yml
 
@@ -73,6 +76,7 @@
     - include_tasks: ./swaync.yml
 
     - include_tasks: ./tmux.yml
+    - include_tasks: ./thunar.yml
 
     - include_tasks: ./wallust.yml
     - include_tasks: ./waybar.yml

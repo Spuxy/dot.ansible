@@ -1,0 +1,26 @@
+- name: "Thunar"
+  block:
+    - name: "🎵 installation thunar"
+      community.general.pacman:
+        name:
+          [
+            "thunar",
+            "thunar-volman",
+            "tumbler",
+            "ffmpegthumbnailer",
+            "file-roller",
+            "thunar-archive-plugin",
+          ]
+        state: present
+      become: true
+      become_user: "root"
+      become_method: "sudo"
+
+    - name: "Copying an dotfiles"
+      shell: "stow -d {{ ansible_dotfiles }} -S gtk"
+
+    - name: "Copying an dotfiles"
+      shell: "stow -d {{ ansible_dotfiles }} -S thunar"
+
+    - name: "Copying an dotfiles"
+      shell: "stow -d {{ ansible_dotfiles }} -S xfce4"
