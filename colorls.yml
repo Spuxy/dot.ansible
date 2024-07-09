@@ -1,4 +1,0 @@
-- name: "[INSTALL] - colorls"
-  gem:
-    name: colorls
-    state: present

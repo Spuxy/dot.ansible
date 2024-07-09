@@ -39,7 +39,7 @@
     - include_tasks: ./alacritty.yml
     - include_tasks: ./atuin.yml
 
-    - include_tasks: ./colorls.yml
+    - include_tasks: ./bluetooth.yml
 
     - include_tasks: ./eww.yml
 
