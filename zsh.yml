@@ -17,7 +17,11 @@
     path: /home/spuxy/.oh-my-zsh
   register: oh_my_stats
 
-  # when: oh_my_stats.stat.exists == False
+- name: "😻 isntalling pokemon-colorscript"
+  shell:
+    cmd: "yay -S --answerclean Y --answerdiff N --noconfirm --noprogressbar pokemon-colorscript-git"
+  become: true
+  become_user: "{{ ansible_user }}"
 
 - name: "copying a dotfiles"
   shell: "stow -d {{ ansible_dotfiles }} -S zsh"
