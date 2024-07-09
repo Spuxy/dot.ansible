@@ -1,6 +1,6 @@
-- name: "Pipewire"
+- name: "🎵 Pipewire"
   block:
-    - name: "installation sounds pkgs"
+    - name: "🎵 installation sounds pkgs"
       community.general.pacman:
         name:
           [
@@ -17,7 +17,7 @@
       become_user: "root"
       become_method: "sudo"
 
-- name: "enable systemd pipewire.socket"
+- name: "🎵 enable systemd pipewire.socket"
   ansible.builtin.systemd_service:
     name: "pipewire.socket"
     state: started
@@ -26,15 +26,7 @@
   become: true
   become_user: "{{ ansible_user }}"
 
-- name: "enable systemd pipewire.service"
-  ansible.builtin.systemd_service:
-    name: "pipewire.service"
-    enabled: true
-    scope: user
-  become: true
-  become_user: "{{ ansible_user }}"
-
-- name: "enable systemd pipewire-pulse.service"
+- name: "🎵 enable systemd pipewire-pulse.service"
   ansible.builtin.systemd_service:
     name: "pipewire-pulse.service"
     enabled: true
@@ -42,7 +34,7 @@
   become: true
   become_user: "{{ ansible_user }}"
 
-- name: "enable systemd pipewire-pulse.socket"
+- name: "🎵 enable systemd pipewire-pulse.socket"
   ansible.builtin.systemd_service:
     name: "pipewire-pulse.socket"
     enabled: true
@@ -50,10 +42,47 @@
   become: true
   become_user: "{{ ansible_user }}"
 
-- name: "enable systemd wireplumber.service"
+- name: "🎵 enable systemd wireplumber.service"
   ansible.builtin.systemd_service:
     name: "wireplumber.service"
     enabled: true
+    scope: user
+  become: true
+  become_user: "{{ ansible_user }}"
+
+- name: "🎵 enable systemd pipewire.service"
+  ansible.builtin.systemd_service:
+    name: "pipewire.service"
+    enabled: true
+    scope: user
+  become: true
+  become_user: "{{ ansible_user }}"
+
+- name: "🎵 To be sure that pulse is deleted"
+  community.general.pacman:
+    name:
+      [
+        "pulseaudio",
+        "pulseaudio-bluetooth",
+        "pulseaudio-alsa",
+      ]
+    state: absent
+  become: true
+  become_user: "root"
+  become_method: "sudo"
+
+- name: "🎵 disable systemd pulseaudio.service"
+  ansible.builtin.systemd_service:
+    name: "pulseaudio.service"
+    enabled: false
+    scope: user
+  become: true
+  become_user: "{{ ansible_user }}"
+
+- name: "🎵 disable systemd pulseaudio.socket"
+  ansible.builtin.systemd_service:
+    name: "pulseaudio.socket"
+    enabled: false
     scope: user
   become: true
   become_user: "{{ ansible_user }}"
