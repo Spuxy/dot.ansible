@@ -1,46 +1,76 @@
 - name: "Fonts"
   block:
-    - name: "[INSTALL] - fontconfig"
+    - name: "✍️ installing an fontconfig"
       community.general.pacman:
         name:
           - fontconfig
         state: present
 
-    - name: "[INSTALL] - ttf-sarasa-gothic-sc"
+    - name: "✍️ isntalling ttf-sarasa-gothic-sc"
       shell:
         cmd: "yay -S --answerclean Y --answerdiff N --noconfirm --noprogressbar ttf-sarasa-gothic-sc"
       become: true
-      become_user: spuxy
+      become_user: "{{ ansible_user }}"
 
-    - name: "[INSTALL] - ttf-sarasa-gothic-nerd-fonts"
+    - name: "✍️ installing ttf-sarasa-gothic-nerd-fonts"
       shell:
         cmd: "yay -S --answerclean Y --answerdiff N --noconfirm --noprogressbar ttf-sarasa-gothic-nerd-fonts"
       become: true
-      become_user: spuxy
+      become_user: "{{ ansible_user }}"
 
-    - name: "[INSTALL] - nerd-fonts-git"
+    - name: "✍️ installing nerd-fonts"
       shell:
         cmd: "yay -S --answerclean Y --answerdiff N --noconfirm --noprogressbar nerd-fonts-git"
       become: true
-      become_user: spuxy
+      become_user: "{{ ansible_user }}"
 
-    - name: "[INSTALL] - otf-font-awesome"
+    - name: "✍️ installing otf-font-awesome"
       shell:
         cmd: "yay -S --answerclean Y --answerdiff N --noconfirm --noprogressbar otf-font-awesome"
       become: true
-      become_user: spuxy
+      become_user: "{{ ansible_user }}"
 
-    - name: "[INSTALL] - ttf-font-awesome"
+    - name: "✍️ installing ttf-font-awesome"
       shell:
         cmd: "yay -S --answerclean Y --answerdiff N --noconfirm --noprogressbar ttf-font-awesome"
       become: true
-      become_user: spuxy
+      become_user: "{{ ansible_user }}"
 
-    - name: "[INSTALL] - ttf-font-awesome"
+    - name: "✍️ installing ttf-firacode"
       shell:
         cmd: "yay -S --answerclean Y --answerdiff N --noconfirm --noprogressbar ttf-firacode"
       become: true
-      become_user: spuxy
+      become_user: "{{ ansible_user }}"
 
-    - name: "[STOW] - fontconfig"
+    - name: "✍️ installing noto-fonts-emoji"
+      shell:
+        cmd: "yay -S --answerclean Y --answerdiff N --noconfirm --noprogressbar noto-fonts-emoji"
+      become: true
+      become_user: "{{ ansible_user }}"
+
+    - name: "✍️ installing adobe-source-code-pro-fonts"
+      shell:
+        cmd: "yay -S --answerclean Y --answerdiff N --noconfirm --noprogressbar adobe-source-code-pro-fonts"
+      become: true
+      become_user: "{{ ansible_user }}"
+
+    - name: "✍️ installing ttf-droid"
+      shell:
+        cmd: "yay -S --answerclean Y --answerdiff N --noconfirm --noprogressbar ttf-droid"
+      become: true
+      become_user: "{{ ansible_user }}"
+
+    - name: "✍️ installing ttf-jetbrains-mono"
+      shell:
+        cmd: "yay -S --answerclean Y --answerdiff N --noconfirm --noprogressbar ttf-jetbrains-mono"
+      become: true
+      become_user: "{{ ansible_user }}"
+
+    - name: "✍️ installing ttf-jetbrains-mono-nerd"
+      shell:
+        cmd: "yay -S --answerclean Y --answerdiff N --noconfirm --noprogressbar ttf-jetbrains-mono-nerd"
+      become: true
+      become_user: "{{ ansible_user }}"
+
+    - name: "copying dotfiles 'fontconfig'"
       shell: "stow -d {{ ansible_dotfiles }} -S fonts"
