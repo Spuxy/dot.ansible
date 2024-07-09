@@ -1,2 +1,35 @@
-- name: "[STOW] - pacman"
-  shell: "stow -d {{ ansible_dotfiles }} -S pacman"
+- name: "configuring 'Color' in pacman.conf"
+  ansible.builtin.replace:
+    path: "/etc/pacman.conf"
+    regexp: "^#Color"
+    replace: "Color"
+  become: true
+  become_user: root
+  become_method: sudo
+
+- name: "configuring 'CheckSpace' in pacman.conf"
+  ansible.builtin.replace:
+    path: "/etc/pacman.conf"
+    regexp: "^#CheckSpace"
+    replace: "CheckSpace"
+  become: true
+  become_user: root
+  become_method: sudo
+
+- name: "configuring 'VerbosePkgList' in pacman.conf"
+  ansible.builtin.replace:
+    path: "/etc/pacman.conf"
+    regexp: "^#VerbosePkgList"
+    replace: "VerbosePkgList"
+  become: true
+  become_user: root
+  become_method: sudo
+
+- name: "configuring 'ParallelDownloads' in pacman.conf"
+  ansible.builtin.replace:
+    path: "/etc/pacman.conf"
+    regexp: "^#ParallelDownloads"
+    replace: "ParallelDownloads"
+  become: true
+  become_user: root
+  become_method: sudo
