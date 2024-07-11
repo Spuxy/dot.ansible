@@ -12,14 +12,14 @@
     name: "{{ ansible_user }}"
     shell: /bin/zsh
 
-- name: "Check that the somefile.conf exists"
-  stat:
-    path: /home/spuxy/.oh-my-zsh
-  register: oh_my_stats
+# - name: "Check that the somefile.conf exists"
+#   stat:
+#     path: /home/spuxy/.oh-my-zsh
+#   register: oh_my_stats
 
 - name: "😻 isntalling pokemon-colorscript"
   shell:
-    cmd: "yay -S --answerclean Y --answerdiff N --noconfirm --noprogressbar pokemon-colorscript-git"
+    cmd: "yay -S --answerclean Y --answerdiff N --noconfirm --noprogressbar pokemon-colorscripts-git"
   become: true
   become_user: "{{ ansible_user }}"
 

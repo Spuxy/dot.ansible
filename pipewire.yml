@@ -60,16 +60,19 @@
 
 - name: "🎵 To be sure that pulse is deleted"
   community.general.pacman:
-    name:
-      [
-        "pulseaudio",
-        "pulseaudio-bluetooth",
-        "pulseaudio-alsa",
-      ]
+    name: ["pulseaudio", "pulseaudio-bluetooth", "pulseaudio-alsa"]
     state: absent
   become: true
   become_user: "root"
   become_method: "sudo"
+
+- name: "check if pulseaudio service exists"
+  stat: path=/etc/systemd/pulseaudio.service
+  register: pulseaudio_service
+
+- name: "check if pulseaudio service exists at user space"
+  stat: path=/etc/systemd/user/pulseaudio.service
+  register: pulseaudio_user_service
 
 - name: "🎵 disable systemd pulseaudio.service"
   ansible.builtin.systemd_service:
@@ -78,6 +81,7 @@
     scope: user
   become: true
   become_user: "{{ ansible_user }}"
+  when: pulseaudio_service.stat.exists or pulseaudio_user_service.stat.exists
 
 - name: "🎵 disable systemd pulseaudio.socket"
   ansible.builtin.systemd_service:
@@ -86,3 +90,4 @@
     scope: user
   become: true
   become_user: "{{ ansible_user }}"
+  when: pulseaudio_service.stat.exists or pulseaudio_user_service.stat.exists

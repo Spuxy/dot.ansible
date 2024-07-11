@@ -17,7 +17,7 @@
       become_method: "sudo"
 
     - name: "Copying an dotfiles"
-      shell: "stow -d {{ ansible_dotfiles }} -S gtk"
+      shell: "stow -d {{ ansible_dotfiles }} -S gtk3"
 
     - name: "Copying an dotfiles"
       shell: "stow -d {{ ansible_dotfiles }} -S thunar"
