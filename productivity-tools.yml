@@ -35,3 +35,15 @@
   become: true
   become_user: spuxy
   when: not howdoi_bin.stat.exists
+
+- name: "check if vencord binary exists"
+  stat:
+    path: "/usr/bin/vencord"
+  register: vencord_bin
+
+- name: "🧰 isntalling an vencord"
+  shell:
+    cmd: "yay -S --answerclean Y --answerdiff N --noconfirm --noprogressbar vencord"
+  become: true
+  become_user: spuxy
+  when: not vencord_bin.stat.exists
