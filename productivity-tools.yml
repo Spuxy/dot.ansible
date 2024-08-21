@@ -38,7 +38,7 @@
 
 - name: "check if vencord binary exists"
   stat:
-    path: "/usr/bin/vencord"
+    path: "/usr/bin/vesktop" # different name of bin
   register: vencord_bin
 
 - name: "🧰 isntalling an vencord"
@@ -47,3 +47,9 @@
   become: true
   become_user: spuxy
   when: not vencord_bin.stat.exists
+  
+- name: "🧰 isntalling an 1password"
+  shell:
+    cmd: "yay -S --answerclean Y --answerdiff N --noconfirm --noprogressbar 1password"
+  become: true
+  become_user: spuxy

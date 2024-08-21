@@ -1,0 +1,14 @@
+- name: "📔 install zathura"
+  community.general.pacman:
+    name:
+      - "zathura"
+    state: present
+  become: true
+  become_user: "root"
+  become_method: "sudo"
+
+- name: "🧰 isntalling an zathura-pdf-mupdf"
+  shell:
+    cmd: "yay -S --answerclean Y --answerdiff N --noconfirm --noprogressbar zathura-pdf-mupdf"
+  become: true
+  become_user: spuxy

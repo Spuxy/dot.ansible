@@ -1,11 +1,12 @@
-- name: "INSTALL - git"
+- name: "installing a git 🐙"
   community.general.pacman:
     name:
       - git
+      - git-delta
     state: present
   become: true
   become_user: 'root'
   become_method: 'sudo'
 
-- name: "[STOW] - git"
+- name: "copying a dotfiles"
   shell: "stow -d {{ ansible_dotfiles }} -S git"

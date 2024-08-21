@@ -1,46 +1,13 @@
 - name: "AGS"
   block:
-    - name: "git cloning ags's repo"
-      ansible.builtin.git:
-        repo: "https://github.com/Aylur/ags.git"
-        dest: "{{ ansible_home }}/Pkgs/ags"
-        recursive: true
-      become: true
-      become_user: "{{ ansible_user }}"
+  - name: "check if ags binary exists"
+    stat:
+      path: "/usr/bin/ags" # different name of bin
+    register: ags_bin
 
-    - name: "isntalling a deps"
-      community.general.pacman:
-        name:
-          [
-            "typescript",
-            "npm",
-            "meson",
-            "gjs",
-            "gtk3",
-            "gtk-layer-shell",
-            "gnome-bluetooth-3.0",
-            "upower",
-            "networkmanager",
-            "gobject-introspection",
-            "libdbusmenu-gtk3",
-            "libsoup3",
-          ]
-        state: present
-      become: true
-      become_user: "root"
-      become_method: "sudo"
-
-    - name: "npm build"
-      shell:
-        chdir: "{{ ansible_home }}/Pkgs/ags"
-        cmd: "npm install"
-
-    - name: "meson build"
-      shell:
-        chdir: "{{ ansible_home }}/Pkgs/ags"
-        cmd: "meson setup build"
-
-    - name: "installtion an pkg"
-      shell:
-        chdir: "{{ ansible_home }}/Pkgs/ags"
-        cmd: "meson install -C build"
+  - name: "🧰 isntalling an ags"
+    shell:
+      cmd: "yay -S --answerclean Y --answerdiff N --noconfirm --noprogressbar aylurs-gtk-shell"
+    become: true
+    become_user: spuxy
+    when: not ags_bin.stat.exists

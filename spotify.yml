@@ -25,9 +25,6 @@
     - name: "copying a dotfiles"
       shell: "stow -d {{ ansible_dotfiles }} -S spotifyd"
 
-    # - name: "copying a dotfiles"
-    #   shell: "stow -d {{ ansible_dotfiles }} -S spotify-tui"
-
     - name: "enable systemd spotifyd.service"
       ansible.builtin.systemd_service:
         name: "spotifyd.service"
@@ -36,3 +33,20 @@
         scope: user
       become: true
       become_user: "{{ ansible_user }}"
+
+    - name: check if psst bin exists
+      stat:
+        path: "/usr/bin/psst"
+      register: psst_bin
+
+    - name: "GIT CLONE - psst"
+      ansible.builtin.git:
+        repo: "https://github.com/jpochyla/psst"
+        dest: "{{ ansible_home }}/Pkgs/psst"
+        when: not psst_bin.stat.exists
+
+    - name: "BUILD - psst"
+      shell: 
+        chdir: "{{ ansible_home }}/Pkgs/psst"
+        cmd: "cargo build --release"
+        when: not psst_bin.stat.exists

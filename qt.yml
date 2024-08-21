@@ -1,0 +1,15 @@
+- name: "QT"
+  block:
+  - name: "installing a packages"
+    community.general.pacman:
+      name:
+        - "{{ pkg1 }}"
+        - "{{ pkg2 }}"
+      state: present
+    become: true
+    become_user: 'root'
+    become_method: 'sudo'
+
+  vars:
+    pkg1: "qt6ct"
+    pkg2: "qt5ct"
