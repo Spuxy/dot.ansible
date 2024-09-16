@@ -10,6 +10,12 @@
     become_user: 'root'
     become_method: 'sudo'
 
+  - name: "copying a dotfiles - qt5"
+    shell: "stow -d {{ ansible_dotfiles }} -S qt5ct"
+
+  - name: "copying a dotfiles - qt6"
+    shell: "stow -d {{ ansible_dotfiles }} -S qt6ct"
+
   vars:
     pkg1: "qt6ct"
     pkg2: "qt5ct"

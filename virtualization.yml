@@ -1,0 +1,22 @@
+- name: "install libvirt"
+  community.general.pacman:
+    name:
+      - "libvirt"
+      - "virt-manager"
+      - "qemu"
+      - "iptables-nft"
+      - "dnsmasq"
+    state: present
+  become: true
+  become_user: "root"
+  become_method: "sudo"
+
+- name: "🧰 isntalling an zathura-pdf-mupdf"
+  shell:
+    cmd: "yay -S --answerclean Y --answerdiff N --noconfirm --noprogressbar zathura-pdf-mupdf"
+  become: true
+  become_user: spuxy
+
+  ### enable libvirtd
+  ### start libvirtd
+  ### group sudo usermod -aG libvirt {user}

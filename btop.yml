@@ -1,0 +1,12 @@
+- name: "btop"
+  block:
+  - name: "🧰 installing an btop"
+    community.general.pacman:
+      name: "btop"
+      state: present
+    become: true
+    become_user: "root"
+    become_method: "sudo"
+
+  - name: "copying a dotfiles - btop"
+    shell: "stow -d {{ ansible_dotfiles }} -S btop"

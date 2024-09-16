@@ -1,16 +1,41 @@
-- name: "EWW"
+- name: "eww"
   block:
-  - name: "GIT CLONE - eww"
-    ansible.builtin.git:
-      repo: "https://github.com/elkowar/eww"
-      dest: "{{ ansible_home }}/Pkgs/eww"
+  - name: "check if eww binary exists"
+    stat:
+      path: "/usr/bin/eww" # different name of bin
+    register: eww_bin
 
-  - name: "BUILD - eww"
-    shell: 
-      chdir: "{{ ansible_home }}/Pkgs/eww"
-      cmd: "cargo build --release --no-default-features --features=wayland"
+  - name: "🧰 isntalling an eww"
+    shell:
+      cmd: "yay -S --answerclean Y --answerdiff N --noconfirm --noprogressbar eww"
+    become: true
+    become_user: spuxy
+    when: not eww_bin.stat.exists
 
-      #- name: "Change permission - eww"
-      #shell: 
-      #chdir: "{{ ansible_home }}/Pkgs/eww"
-      #cmd: "chmod +x ./eww"
+  # - name: "GIT CLONE - eww"
+  #   ansible.builtin.git:
+  #     repo: "https://github.com/elkowar/eww"
+  #     dest: "{{ ansible_home }}/Pkgs/eww"
+  #   become: true
+  #   become_user: spuxy
+  #
+  # - name: "BUILD - eww"
+  #   shell: 
+  #     chdir: "{{ ansible_home }}/Pkgs/eww"
+  #     cmd: "cargo build --release --no-default-features --features=wayland"
+  #   become: true
+  #   become_user: spuxy
+  #
+  # - name: "Change permission - eww"
+  #   shell: 
+  #     chdir: "{{ ansible_home }}/Pkgs/eww"
+  #     cmd: "chmod +x ./eww"
+  #   become: true
+  #   become_user: spuxy
+  #
+  # - name: "Change permission - eww"
+  #   shell: 
+  #     chdir: "{{ ansible_home }}/Pkgs/eww"
+  #     cmd: "./eww daemon"
+  #   become: true
+  #   become_user: spuxy

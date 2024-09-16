@@ -17,6 +17,9 @@
       #
     # Dirs
     - include_tasks: ./dirs.yml
+    - include_tasks: ./wlogout.yml
+    - include_tasks: ./productivity-tools.yml
+
 
     # Yay
     - include_tasks: ./yay.yml
@@ -32,7 +35,6 @@
     # Pre tasks
     - include_tasks: ./plugins/stow.yml
     - include_tasks: ./stow.yml
-    - include_tasks: ./productivity-tools.yml
     - include_tasks: ./hyprland-tools.yml
 
     # Tools
@@ -41,6 +43,7 @@
     - include_tasks: ./atuin.yml
 
     - include_tasks: ./bluetooth.yml
+    - include_tasks: ./btop.yml
 
     - include_tasks: ./eww.yml
     - include_tasks: ./eza.yml
@@ -53,6 +56,8 @@
 
     - include_tasks: ./hyprland.yml
 
+    - include_tasks: ./kvantum.yml
+
     - include_tasks: ./mpd.yml
     - include_tasks: ./mpv.yml
 
@@ -64,12 +69,14 @@
     - include_tasks: ./pipewire.yml
 
     - include_tasks: ./qutebrowser.yml
+    - include_tasks: ./qt.yml
 
     - include_tasks: ./ranger.yml
     - include_tasks: ./redshift.yml
     - include_tasks: ./rofi.yml
 
     - include_tasks: ./sddm.yml
+    - include_tasks: ./swappy.yml
     - include_tasks: ./swww.yml
     - include_tasks: ./scripts.yml
     - include_tasks: ./spotify.yml
@@ -80,7 +87,6 @@
 
     - include_tasks: ./wallust.yml
     - include_tasks: ./waybar.yml
-    - include_tasks: ./wlogout.yml
 
     - include_tasks: ./yazi.yml
 

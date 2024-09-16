@@ -47,6 +47,18 @@
   become: true
   become_user: spuxy
   when: not vencord_bin.stat.exists
+
+- name: "check if ferdium binary exists"
+  stat:
+    path: "/usr/bin/ferdium" # different name of bin
+  register: ferdium_bin
+
+- name: "🧰 isntalling an ferdium"
+  shell:
+    cmd: "yay -S --answerclean Y --answerdiff N --noconfirm --noprogressbar ferdium"
+  become: true
+  become_user: spuxy
+  when: not ferdium_bin.stat.exists
   
 - name: "🧰 isntalling an 1password"
   shell:

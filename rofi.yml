@@ -1,6 +1,6 @@
 - name: "Rofi"
   block:
-    - name: "installation an pkg"
+    - name: "🧰 installing an rofi"
       community.general.pacman:
         name: "rofi-wayland"
         state: present

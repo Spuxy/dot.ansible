@@ -1,0 +1,12 @@
+- name: "kvantum"
+  block:
+  - name: "🧰 installing kvantum"
+    community.general.pacman:
+      name: "kvantum"
+      state: present
+    become: true
+    become_user: "root"
+    become_method: "sudo"
+
+  - name: "copying a dotfiles - kvantum"
+    shell: "stow -d {{ ansible_dotfiles }} -S kvantum"

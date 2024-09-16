@@ -12,6 +12,18 @@
     become_user: 'root'
     become_method: 'sudo'
 
+  - name: check if themes exists
+    stat:
+      path: "/usr/share/themes/Colloid-Compact-Gruvbox"
+    register: gtk_themes
+
+  - name: "installing themes"
+    shell:
+      cmd: "yay -S --answerclean Y --answerdiff N --noconfirm --noprogressbar colloid-gruvbox-gtk-theme-git"
+    become: true
+    become_user: spuxy
+    when: not gtk_themes.stat.exists
+
   vars:
     pkg1: "gtk4"
     pkg2: "adwaita-icon-theme"

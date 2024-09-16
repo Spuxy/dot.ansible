@@ -23,7 +23,6 @@
         "inxi",
         "jq",
         "kitty",
-        "kvantum",
         "nano",
         "network-manager-applet",
         "playerctl",
@@ -67,18 +66,6 @@
   become: true
   become_user: "spuxy"
   when: not cava_bin.stat.exists
-
-- name: check if ags binary exists
-  stat:
-    path: "/usr/bin/ags"
-  register: ags_bin
-
-- name: "installing an aylurs-gtk-shell (ags)"
-  shell:
-    cmd: "yay -S --answerclean Y --answerdiff N --noconfirm --noprogressbar aylurs-gtk-shell"
-  become: true
-  become_user: "spuxy"
-  when: not ags_bin.stat.exists
 
 - name: check if pyprland(pypr) binary exists
   stat:

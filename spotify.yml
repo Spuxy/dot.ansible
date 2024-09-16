@@ -43,10 +43,8 @@
       ansible.builtin.git:
         repo: "https://github.com/jpochyla/psst"
         dest: "{{ ansible_home }}/Pkgs/psst"
-        when: not psst_bin.stat.exists
 
     - name: "BUILD - psst"
       shell: 
         chdir: "{{ ansible_home }}/Pkgs/psst"
         cmd: "cargo build --release"
-        when: not psst_bin.stat.exists

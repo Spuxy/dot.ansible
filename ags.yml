@@ -11,3 +11,6 @@
     become: true
     become_user: spuxy
     when: not ags_bin.stat.exists
+
+  - name: "copying a dotfiles - ags"
+    shell: "stow -d {{ ansible_dotfiles }} -S ags"
