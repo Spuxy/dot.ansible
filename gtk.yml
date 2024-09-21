@@ -6,26 +6,95 @@
         - "{{ pkg1 }}"
         - "{{ pkg2 }}"
         - "{{ pkg3 }}"
-        - "{{ pkg4 }}"
       state: present
     become: true
     become_user: 'root'
     become_method: 'sudo'
 
-  - name: check if themes exists
-    stat:
-      path: "/usr/share/themes/Colloid-Compact-Gruvbox"
-    register: gtk_themes
+  # - name: check if colloid gruvbox themes exists
+  #   stat:
+  #     path: "/usr/share/themes/Colloid-Compact-Gruvbox"
+  #   register: colloid_gruvbox_dir
 
-  - name: "installing themes"
+  - name: "installing colloid gruvbox themes"
     shell:
       cmd: "yay -S --answerclean Y --answerdiff N --noconfirm --noprogressbar colloid-gruvbox-gtk-theme-git"
     become: true
     become_user: spuxy
-    when: not gtk_themes.stat.exists
+
+  - name: "installing colloid gruvbox icons"
+    shell:
+      cmd: "yay -S --answerclean Y --answerdiff N --noconfirm --noprogressbar colloid-gruvbox-theme-git"
+    become: true
+    become_user: spuxy
+
+  - name: "installing colloid catppucino themes"
+    shell:
+      cmd: "yay -S --answerclean Y --answerdiff N --noconfirm --noprogressbar colloid-catpuccino-gtk-theme-git"
+    become: true
+    become_user: spuxy
+
+  - name: "installing colloid catppucino icons"
+    shell:
+      cmd: "yay -S --answerclean Y --answerdiff N --noconfirm --noprogressbar colloid-catpuccino-theme-git"
+    become: true
+    become_user: spuxy
+
+  - name: "installing colloid everforest themes"
+    shell:
+      cmd: "yay -S --answerclean Y --answerdiff N --noconfirm --noprogressbar colloid-everforest-gtk-theme-git"
+    become: true
+    become_user: spuxy
+
+  - name: "installing colloid everforest icons"
+    shell:
+      cmd: "yay -S --answerclean Y --answerdiff N --noconfirm --noprogressbar colloid-everforest-theme-git"
+    become: true
+    become_user: spuxy
+
+  - name: "installing colloid dracula themes"
+    shell:
+      cmd: "yay -S --answerclean Y --answerdiff N --noconfirm --noprogressbar colloid-dracula-gtk-theme-git"
+    become: true
+    become_user: spuxy
+
+  - name: "installing colloid dracula icons"
+    shell:
+      cmd: "yay -S --answerclean Y --answerdiff N --noconfirm --noprogressbar colloid-dracula-theme-git"
+    become: true
+    become_user: spuxy
+
+  - name: "installing colloid nord themes"
+    shell:
+      cmd: "yay -S --answerclean Y --answerdiff N --noconfirm --noprogressbar colloid-nord-gtk-theme-git"
+    become: true
+    become_user: spuxy
+
+  - name: "installing colloid dracula icons"
+    shell:
+      cmd: "yay -S --answerclean Y --answerdiff N --noconfirm --noprogressbar colloid-nord-icon-theme-git"
+    become: true
+    become_user: spuxy
+
+  - name: "installing colloid icon themes"
+    shell:
+      cmd: "yay -S --answerclean Y --answerdiff N --noconfirm --noprogressbar colloid-icon-theme-git"
+    become: true
+    become_user: spuxy
+
+  - name: "installing colloid cursors themes"
+    shell:
+      cmd: "yay -S --answerclean Y --answerdiff N --noconfirm --noprogressbar colloid-cursors-git"
+    become: true
+    become_user: spuxy
+
+  - name: "installing colloid gtk themes"
+    shell:
+      cmd: "yay -S --answerclean Y --answerdiff N --noconfirm --noprogressbar colloid-gtk-theme-git"
+    become: true
+    become_user: spuxy
 
   vars:
     pkg1: "gtk4"
-    pkg2: "adwaita-icon-theme"
-    pkg3: "nautilus"
-    pkg4: "gtk-engine-murrine"
+    pkg2: "nautilus"
+    pkg3: "gtk-engine-murrine"

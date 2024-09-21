@@ -33,6 +33,7 @@
         - "hyprlang"
         - "hyprcursor"
         - "hyprwayland-scanner"
+        - "hyprutils"
         #- "xcb-utils-errors"
       executable: yay
       state: present
@@ -40,7 +41,7 @@
 
   - name: check if Hyprland binary exists
     stat:
-      path: "/usr/bin/Hyprland"
+      path: "/usr/local/bin/Hyprland"
     register: hyprland_bin
 
   - name: "git cloning an hypr's repo"

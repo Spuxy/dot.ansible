@@ -3,6 +3,7 @@
     name:
       - git
       - git-delta
+      - diff-so-fancy
     state: present
   become: true
   become_user: 'root'

@@ -17,13 +17,7 @@
       #
     # Dirs
     - include_tasks: ./dirs.yml
-    - include_tasks: ./wlogout.yml
-    - include_tasks: ./productivity-tools.yml
-
-
-    # Yay
-    - include_tasks: ./yay.yml
-    - include_tasks: ./pacman.yml
+    - include_tasks: ./lutris.yml
 
     # Languages
     - include_tasks: ./languages/python.yml
@@ -31,6 +25,13 @@
     - include_tasks: ./languages/rust.yml
     - include_tasks: ./languages/npm.yml
     - include_tasks: ./languages/ruby.yml
+
+    # Yay
+    - include_tasks: ./yay.yml
+    - include_tasks: ./pacman.yml
+
+    # Tools
+    - include_tasks: ./productivity-tools.yml
 
     # Pre tasks
     - include_tasks: ./plugins/stow.yml
@@ -87,6 +88,7 @@
 
     - include_tasks: ./wallust.yml
     - include_tasks: ./waybar.yml
+    - include_tasks: ./wlogout.yml
 
     - include_tasks: ./yazi.yml
 

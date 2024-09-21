@@ -44,6 +44,11 @@
         repo: "https://github.com/jpochyla/psst"
         dest: "{{ ansible_home }}/Pkgs/psst"
 
+    - name: check if psst bin exists
+      stat:
+        path: "/usr/bin/psst"
+      register: psst_bin
+
     - name: "BUILD - psst"
       shell: 
         chdir: "{{ ansible_home }}/Pkgs/psst"

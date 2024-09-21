@@ -11,6 +11,7 @@
             "wireplumber",
             "pavucontrol",
             "pamixer",
+            "sof-firmware",
           ]
         state: present
       become: true

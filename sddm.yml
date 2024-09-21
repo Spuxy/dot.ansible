@@ -36,15 +36,15 @@
     become_user: root
     become_method: sudo
 
-  - name: "🔑 check if dir exists for sddm theme"
-    stat: path=/usr/share/sddm/themes/dot.sddm
-    register: theme_dir
+  # - name: "🔑 check if dir exists for sddm theme"
+  #   stat: path=/usr/share/sddm/themes/dot.sddm
+  #   register: theme_dir
 
   - name: "🔑 copying a dotfiles"
     shell:
       chdir: "{{ ansible_dotfiles }}/sddm"
-      cmd: "stow -t /usr/share/sddm/themes theme"
-    when: not theme_dir.stat.exists
+      cmd: "git clone https://github.com/Spuxy/dot.sddm.git"
+    # when: not theme_dir.stat.exists
 
   - name: "🔑 check if dir exists for wayland session"
     stat: path=/usr/share/wayland-sessions/hyprland.desktop

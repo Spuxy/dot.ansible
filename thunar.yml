@@ -16,6 +16,12 @@
       become_user: "root"
       become_method: "sudo"
 
+    - name: "[Thunar] - set as default file manager"
+      shell: "xdg-mime default thunar.desktop application/x-wayland-gnome-saved-search"
+
+    - name: "[Thunar] - set as default file manager"
+      shell: "xdg-mime default thunar.desktop inode/directory"
+
     - name: "Copying an dotfiles"
       shell: "stow -d {{ ansible_dotfiles }} -S gtk3"
 

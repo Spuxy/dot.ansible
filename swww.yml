@@ -5,11 +5,6 @@
       repo: "https://github.com/LGFae/swww.git"
       dest: "{{ ansible_home }}/Pkgs/swww"
 
-  - name: "building an pkg"
-    shell: 
-      chdir: "{{ ansible_home }}/Pkgs/swww"
-      cmd: "cargo build --release"
-
   - name: check if swww bin exists
     stat:
       path: "/usr/bin/swww"
@@ -19,6 +14,14 @@
     stat:
       path: "/usr/bin/swww-daemon"
     register: swwwdaemon_bin
+
+  - name: "building an pkg"
+    shell: 
+      chdir: "{{ ansible_home }}/Pkgs/swww"
+      cmd: "cargo build --release"
+    become: true
+    become_user: "{{ ansible_user }}"
+    when: not swww_bin.stat.exists
 
   - name: "move swww binary into /usr/bin"
     shell: 

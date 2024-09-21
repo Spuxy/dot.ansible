@@ -76,3 +76,17 @@
     state: directory
   become: yes
   become_user: spuxy
+
+- name: "[CREATE DIRECTORY] - Pictures"
+  ansible.builtin.file:
+    path: "{{ ansible_home }}/Pictures"
+    state: directory
+  become: yes
+  become_user: spuxy
+
+- name: "[CREATE DIRECTORY] - Wallpapers"
+  ansible.builtin.file:
+    path: "{{ ansible_home }}/Pictures/wallpapers"
+    state: directory
+  become: yes
+  become_user: spuxy
