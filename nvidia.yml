@@ -1,15 +1,15 @@
-- name: "NVIDIA"
+- name: "nvidia"
   block:
-  - name: "🎮 installing an nvidia"
+  - name: "📦 installing a packages"
     community.general.pacman:
       name:
-        - "{{ pkg1 }}"
-        - "{{ pkg2 }}"
-        - "{{ pkg3 }}"
-        - "{{ pkg4 }}"
+        - "nvidia"
+        - "nvidia-utils"
+        - "nvidia-settings"
+        - "egl-wayland"
       state: present
 
-  - name: "🎮 building kernel parameters into initramfs"
+  - name: "🔨 building kernel parameters into initramfs"
     ansible.builtin.replace:
       path: /etc/mkinitcpio.conf
       regexp: "^MODULES\\=\\(\\)"
@@ -18,7 +18,7 @@
     become_user: root
     become_method: sudo
 
-  - name: "🎮 create nvidia.conf for options"
+  - name: "🔨 create nvidia.conf for options"
     lineinfile:
       path: /etc/modprobe.d/nvidia.conf
       line: "options nvidia_drm modeset=1 fbdev=1"
@@ -27,15 +27,9 @@
     become_user: root
     become_method: sudo
 
-  - name: "🎮 building initramfs"
+  - name: "🔨 building initramfs"
     command: mkinitcpio -P
     become: true
     become_user: root
     become_method: sudo
-
-  vars:
-    pkg1: "nvidia"
-    pkg2: "nvidia-utils"
-    pkg3: "nvidia-settings"
-    pkg4: "egl-wayland"
 

@@ -1,6 +1,6 @@
-- name: "🎵 Pipewire"
+- name: "pipewire"
   block:
-    - name: "🎵 installation sounds pkgs"
+    - name: "📦 installing a packages"
       community.general.pacman:
         name:
           [
@@ -18,7 +18,7 @@
       become_user: "root"
       become_method: "sudo"
 
-- name: "🎵 enable systemd pipewire.socket"
+- name: "🚨 enable systemd pipewire.socket"
   ansible.builtin.systemd_service:
     name: "pipewire.socket"
     state: started
@@ -27,7 +27,7 @@
   become: true
   become_user: "{{ ansible_user }}"
 
-- name: "🎵 enable systemd pipewire-pulse.service"
+- name: "🚨 enable systemd pipewire-pulse.service"
   ansible.builtin.systemd_service:
     name: "pipewire-pulse.service"
     enabled: true
@@ -35,7 +35,7 @@
   become: true
   become_user: "{{ ansible_user }}"
 
-- name: "🎵 enable systemd pipewire-pulse.socket"
+- name: "🚨 enable systemd pipewire-pulse.socket"
   ansible.builtin.systemd_service:
     name: "pipewire-pulse.socket"
     enabled: true
@@ -43,7 +43,7 @@
   become: true
   become_user: "{{ ansible_user }}"
 
-- name: "🎵 enable systemd wireplumber.service"
+- name: "🚨 enable systemd wireplumber.service"
   ansible.builtin.systemd_service:
     name: "wireplumber.service"
     enabled: true
@@ -51,7 +51,7 @@
   become: true
   become_user: "{{ ansible_user }}"
 
-- name: "🎵 enable systemd pipewire.service"
+- name: "🚨 enable systemd pipewire.service"
   ansible.builtin.systemd_service:
     name: "pipewire.service"
     enabled: true
@@ -59,7 +59,7 @@
   become: true
   become_user: "{{ ansible_user }}"
 
-- name: "🎵 To be sure that pulse is deleted"
+- name: "🧨 To be sure that pulse is deleted"
   community.general.pacman:
     name: ["pulseaudio", "pulseaudio-bluetooth", "pulseaudio-alsa"]
     state: absent
@@ -67,15 +67,15 @@
   become_user: "root"
   become_method: "sudo"
 
-- name: "check if pulseaudio service exists"
+- name: "✅ check if pulseaudio service exists"
   stat: path=/etc/systemd/pulseaudio.service
   register: pulseaudio_service
 
-- name: "check if pulseaudio service exists at user space"
+- name: "✅ check if pulseaudio service exists at user space"
   stat: path=/etc/systemd/user/pulseaudio.service
   register: pulseaudio_user_service
 
-- name: "🎵 disable systemd pulseaudio.service"
+- name: "🚨 disable systemd pulseaudio.service"
   ansible.builtin.systemd_service:
     name: "pulseaudio.service"
     enabled: false
@@ -84,7 +84,7 @@
   become_user: "{{ ansible_user }}"
   when: pulseaudio_service.stat.exists or pulseaudio_user_service.stat.exists
 
-- name: "🎵 disable systemd pulseaudio.socket"
+- name: "🚨 disable systemd pulseaudio.socket"
   ansible.builtin.systemd_service:
     name: "pulseaudio.socket"
     enabled: false

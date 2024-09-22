@@ -1,4 +1,4 @@
-- name: "install ruby"
+- name: "👅 ruby"
   community.general.pacman:
     name:
       - "ruby"

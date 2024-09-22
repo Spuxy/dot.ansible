@@ -1,6 +1,6 @@
-- name: "Swaync"
+- name: "swaync"
   block:
-  - name: "installing an pkg"
+  - name: "📦 installing an package"
     community.general.pacman:
       name:
         - "swaync"
@@ -9,6 +9,6 @@
     become_user: 'root'
     become_method: 'sudo'
 
-  - name: "copying a dotfiles"
+  - name: "🖨️ copying a dotfiles"
     shell: "stow -d {{ ansible_dotfiles }} -S swaync"
 

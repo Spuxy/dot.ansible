@@ -1,0 +1,8 @@
+- name: "cava"
+  block:
+  - name: "📦 isntalling a packages"
+    community.general.pacman:
+      name:
+        - "cava"
+      executable: yay
+      state: present

@@ -1,21 +1,19 @@
-- name: "QT"
+- name: "qt"
   block:
-  - name: "installing a packages"
+  - name: "📦 installing a packages"
     community.general.pacman:
       name:
-        - "{{ pkg1 }}"
-        - "{{ pkg2 }}"
+        - "qt6ct"
+        - "qt5ct"
       state: present
     become: true
     become_user: 'root'
     become_method: 'sudo'
 
-  - name: "copying a dotfiles - qt5"
-    shell: "stow -d {{ ansible_dotfiles }} -S qt5ct"
-
-  - name: "copying a dotfiles - qt6"
-    shell: "stow -d {{ ansible_dotfiles }} -S qt6ct"
-
-  vars:
-    pkg1: "qt6ct"
-    pkg2: "qt5ct"
+  - name: "🖨️ copying a dotfiles - {{ item }}"
+    shell: "stow -d {{ ansible_dotfiles }} -S {{ item }}"
+    become: true
+    become_user: "{{ ansible_user }}"
+    loop:
+      - "qt6ct"
+      - "qt5ct"

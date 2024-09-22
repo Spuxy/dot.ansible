@@ -1,4 +1,4 @@
-- name: "install python"
+- name: "👅 python"
   community.general.pacman:
     name:
       - python

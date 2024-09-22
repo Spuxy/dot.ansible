@@ -1,11 +1,10 @@
-- name: "[INSTALL] - mpd"
+- name: "👅 cpp"
   community.general.pacman:
     name:
-      - mpd
+      - cppcheck
+      - gcc
+      - glibc
     state: present
   become: true
   become_user: 'root'
   become_method: 'sudo'
-
-- name: "[STOW] - mpd"
-  shell: "stow -d {{ ansible_dotfiles }} -S mpd"

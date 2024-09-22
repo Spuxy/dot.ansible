@@ -1,6 +1,6 @@
 - name: "swappy"
   block:
-  - name: "🧰 installing an swappy"
+  - name: "📦 installing an package"
     community.general.pacman:
       name: "swappy"
       state: present
@@ -8,5 +8,5 @@
     become_user: "root"
     become_method: "sudo"
 
-- name: "copying a dotfiles - swappy"
+- name: "🖨️ copying a dotfiles"
   shell: "stow -d {{ ansible_dotfiles }} -S swappy"

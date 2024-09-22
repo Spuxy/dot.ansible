@@ -1,18 +1,18 @@
 - name: "wallust"
   block:
-  - name: "[GIT CLONE] - wallust"
+  - name: "🪢 pulling upstream's repository"
     ansible.builtin.git:
       repo: "https://codeberg.org/explosion-mental/wallust.git"
-      dest: "{{ ansible_home }}/Pkgs/wallust"
+      dest: "{{ ansible_upstreams_dir }}/wallust"
       version: dev
     become: true
     become_user: '{{ ansible_user }}'
 
-  - name: "[BUILD] - wallust"
+  - name: "🔨 building an wallust"
     become: true
     become_user: 'root'
     become_method: 'sudo'
     shell: 
-      chdir: '{{ ansible_home }}/Pkgs/wallust'
+      chdir: '{{ ansible_upstreams_dir }}/wallust'
       cmd: "make install"
 

@@ -1,11 +1,13 @@
-- name: "[INSTALL] - Atuin"
-  community.general.pacman:
-    name:
-      - atuin
-    state: present
-  become: true
-  become_user: 'root'
-  become_method: 'sudo'
+- name: "Atuin"
+  block:
+  - name: "📦 installing an package"
+    community.general.pacman:
+      name:
+        - atuin
+      state: present
+    become: true
+    become_user: 'root'
+    become_method: 'sudo'
 
-- name: "[STOW] - Atuin"
+- name: "🖨️ copying a dotfiles"
   shell: "stow -d {{ ansible_dotfiles }} -S atuin"

@@ -1,17 +1,16 @@
 - name: "Goread"
   block:
-
-    - name: check if goread bin exists
+    - name: ✅ check if bin exists
       stat:
         path: "/usr/bin/goread"
       register: goread_bin
 
-    - name: "installing an pkg"
+    - name: "📦 installing an package"
       shell:
         cmd: "yay -S --answerclean Y --answerdiff N --noconfirm --noprogressbar goread"
       become: true
       become_user: spuxy
       when: not goread_bin.stat.exists
 
-    - name: "copying a dotfiles"
+    - name: "🖨️ copying a dotfiles"
       shell: "stow -d {{ ansible_dotfiles }} -S goread"

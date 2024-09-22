@@ -1,7 +1,10 @@
-- name: "[INSTALL] - tmux"
-  community.general.pacman:
-    name:
-      - tmux 
-    state: present
-- name: "[STOW] - tmux"
-  shell: "stow -d {{ ansible_dotfiles }} -S tmux"
+- name: "tmux"
+  block:
+    - name: "📦 installing an package"
+      community.general.pacman:
+        name:
+          - tmux 
+        state: present
+
+    - name: "🖨️ copying a dotfiles"
+      shell: "stow -d {{ ansible_dotfiles }} -S tmux"

@@ -1,6 +1,6 @@
-- name: "Rofi"
+- name: "rofi"
   block:
-    - name: "🧰 installing an rofi"
+    - name: "📦 installing an package"
       community.general.pacman:
         name: "rofi-wayland"
         state: present
@@ -8,5 +8,5 @@
       become_user: "root"
       become_method: "sudo"
 
-    - name: "Copying an dotfiles"
+    - name: "🖨️ copying an dotfiles"
       shell: "stow -d {{ ansible_dotfiles }} -S rofi"

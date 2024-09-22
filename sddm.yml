@@ -1,18 +1,18 @@
-- name: "SDDM"
+- name: "sddm"
   block:
-  - name: "🔑 installing an sddm"
+  - name: "📦 installing a packages"
     community.general.pacman:
       name:
-        - "{{ pkg1 }}"
-        - "{{ pkg2 }}"
-        - "{{ pkg3 }}"
-        - "{{ pkg4 }}"
+        - "sddm"
+        - "qt6-5compat"
+        - "qt6-declarative"
+        - "qt6-svg" 
       state: present
     become: true
     become_user: "root"
     become_method: "sudo"
 
-  - name: "🔑 enable systemd sddm"
+  - name: "🚨 enable systemd sddm"
     ansible.builtin.systemd_service:
       name: sddm.service
       state: started
@@ -20,7 +20,7 @@
     become: true
     become_user: "{{ ansible_user }}"
 
-  - name: "🔑 creating dir sddm.conf.d"
+  - name: "📁 creating dir sddm.conf.d"
     ansible.builtin.file:
       path: "/etc/sddm.conf.d"
       state: directory
@@ -28,7 +28,7 @@
     become_user: root
     become_method: sudo
 
-  - name: "🔑 creating dir wayland-sessions"
+  - name: "📁 creating dir wayland-sessions"
     ansible.builtin.file:
       path: "/usr/share/wayland-sessions"
       state: directory
@@ -36,38 +36,43 @@
     become_user: root
     become_method: sudo
 
-  # - name: "🔑 check if dir exists for sddm theme"
-  #   stat: path=/usr/share/sddm/themes/dot.sddm
-  #   register: theme_dir
+  - name: "✅ check if dir dot.sddm repository exists"
+    stat:
+      path: "{{ ansible_dotfiles }}/sddm/dot.sddm" # different name of bin
+    register: dot_sddm_bin
 
-  - name: "🔑 copying a dotfiles"
+  - name: "🪢 pulling a dot.sddm repository"
     shell:
       chdir: "{{ ansible_dotfiles }}/sddm"
-      cmd: "git clone https://github.com/Spuxy/dot.sddm.git"
-    # when: not theme_dir.stat.exists
+      cmd: "git clone git@github.com:Spuxy/dot.sddm.git"
+    become: yes
+    become_user: "{{ ansible_user }}"
+    when: not dot_sddm_bin.stat.exists
 
-  - name: "🔑 check if dir exists for wayland session"
+  - name: "🖨️ copying a dotfiles"
+    shell:
+      chdir: "{{ ansible_dotfiles }}/sddm"
+      cmd: "cp -r dot.sddm /usr/share/sddm/themes"
+    become: "yes"
+    become_user: "root"
+    become_method: "sudo"
+
+  - name: "✅ check if dir exists for wayland session"
     stat: path=/usr/share/wayland-sessions/hyprland.desktop
     register: wayland_sesion_dir
 
-  - name: "🔑 copying a dotfiles wayland-session"
+  - name: "🖨️ copying a dotfiles wayland-session"
     shell:
       chdir: "{{ ansible_dotfiles }}/sddm"
       cmd: "stow -t /usr/share/wayland-sessions wayland-sessions"
     when: not wayland_sesion_dir.stat.exists
 
-  - name: "🔑 check if dir exists for sddm conf.d"
+  - name: "✅ check if dir exists for sddm conf.d"
     stat: path=/etc/sddm.conf.d/theme.conf.user
     register: sddm_conf_dir
 
-  - name: "🔑 copying a dotfiles sddm.conf.d"
+  - name: "🖨️ copying a dotfiles sddm.conf.d"
     shell:
       chdir: "{{ ansible_dotfiles }}/sddm"
       cmd: "stow -t /etc/sddm.conf.d sddm.conf.d"
     when: not sddm_conf_dir.stat.exists
-
-  vars:
-    pkg1: "sddm"
-    pkg2: "qt6-5compat"
-    pkg3: "qt6-declarative"
-    pkg4: "qt6-svg" 

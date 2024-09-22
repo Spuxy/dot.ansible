@@ -1,6 +1,6 @@
 - name: "Hyprland"
   block:
-  - name: "isntalling an hyprland"
+  - name: "📦 isntalling a packages"
     community.general.pacman:
       name:
         - "gdb"
@@ -39,23 +39,23 @@
       state: present
 
 
-  - name: check if Hyprland binary exists
+  - name: ✅ check if an binary exists
     stat:
       path: "/usr/local/bin/Hyprland"
     register: hyprland_bin
 
-  - name: "git cloning an hypr's repo"
+  - name: "🪢 pulling upstream's repository"
     ansible.builtin.git:
       repo: "https://github.com/hyprwm/Hyprland"
       dest: "{{ ansible_home }}/Pkgs/Hyprland"
       recursive: true
     when: not hyprland_bin.stat.exists
 
-  - name: "building an hyprland"
+  - name: "🔨 building an hyprland"
     shell: 
       chdir: "{{ ansible_home }}/Pkgs/Hyprland"
       cmd: "make all && sudo make install"
     when: not hyprland_bin.stat.exists
 
-  - name: "copying a dotfiles"
+  - name: "🖨️ copying a dotfiles"
     shell: "stow -d {{ ansible_dotfiles }} -S hyprland"

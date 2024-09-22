@@ -1,54 +1,57 @@
-- name: "installing hypr's deps"
-  community.general.pacman:
-    name:
-      [
-        "brightnessctl",
-        "btop",
-        "eog",
-        "fastfetch",
-        "gnome-system-monitor",
-        "mousepad",
-        "mpv-mpris",
-        "nvtop",
-        "nwg-look",
-        "pacman-contrib",
-        "yt-dlp",
-        "cliphist",
-        "grim",
-        "gvfs",
-        "gvfs-mtp",
-        "hypridle",
-        "aquamarine",
-        "hyprlock",
-        "imagemagick",
-        "inxi",
-        "jq",
-        "kitty",
-        "nano",
-        "network-manager-applet",
-        "playerctl",
-        "polkit-gnome",
-        "python-requests",
-        "python-pyquery",
-        "qt5ct",
-        "qt6ct",
-        "qt6-svg",
-        "slurp",
-        "swappy",
-        "swww",
-        "wl-clipboard",
-        "xdg-user-dirs",
-        "xdg-utils",
-        "xdg-desktop-portal-hyprland",
-        "xdg-desktop-portal-gtk",
-        "yad",
-      ]
-    state: present
-  become: true
-  become_user: "root"
-  become_method: "sudo"
+- name: "Hyprland"
+  block:
+    - name: "📦 installing an packages"
+      community.general.pacman:
+        name:
+          [
+            "brightnessctl",
+            "btop",
+            "eog",
+            "fastfetch",
+            "gnome-system-monitor",
+            "mousepad",
+            "mpv-mpris",
+            "nvtop",
+            "nwg-look",
+            "nwg-shell",
+            "pacman-contrib",
+            "yt-dlp",
+            "cliphist",
+            "grim",
+            "gvfs",
+            "gvfs-mtp",
+            "hypridle",
+            "aquamarine",
+            "hyprlock",
+            "imagemagick",
+            "inxi",
+            "jq",
+            "kitty",
+            "nano",
+            "network-manager-applet",
+            "playerctl",
+            "polkit-gnome",
+            "python-requests",
+            "python-pyquery",
+            "qt5ct",
+            "qt6ct",
+            "qt6-svg",
+            "slurp",
+            "swappy",
+            "swww",
+            "wl-clipboard",
+            "xdg-user-dirs",
+            "xdg-utils",
+            "xdg-desktop-portal-hyprland",
+            "xdg-desktop-portal-gtk",
+            "yad",
+          ]
+        state: present
+      become: true
+      become_user: "root"
+      become_method: "sudo"
 
-- name: "uninstall xdg-desktop-portal-wlr and xdg-desktop-portal-lxqt"
+- name: "🧨 uninstall xdg-desktop-portal-wlr and xdg-desktop-portal-lxqt"
   community.general.pacman:
     name: ["xdg-desktop-portal-lxqt", "xdg-desktop-portal-wlr"]
     state: absent
@@ -56,38 +59,15 @@
   become_user: "root"
   become_method: "sudo"
 
-- name: check if cava binary exists
-  stat:
-    path: "/usr/bin/cava"
-  register: cava_bin
+- name: ✅ check and install an 📦 {{ item }}
+  ansible.builtin.command: yay -S --answerclean Y --answerdiff N --noconfirm --noprogressbar {{ item }}
+  loop:
+    # - nwg-shell
+    - pyprland 
+  when: item not in installed_packages.stdout
 
-- name: "installing an cava"
-  shell:
-    cmd: "yay -S --answerclean Y --answerdiff N --noconfirm --noprogressbar cava"
-  become: true
-  become_user: "spuxy"
-  when: not cava_bin.stat.exists
+- name: "🖨️ coyping a dotfiles"
+  shell: "stow -d {{ ansible_dotfiles }} -S fastfetch"
 
-- name: check if pyprland(pypr) binary exists
-  stat:
-    path: "/usr/bin/pypr"
-  register: pypr_bin
-
-- name: "installing an pyprland (pypr)"
-  shell:
-    cmd: "yay -S --answerclean Y --answerdiff N --noconfirm --noprogressbar pyprland"
-  become: true
-  become_user: "spuxy"
-  when: not pypr_bin.stat.exists
-
-- name: check if nwg-shell binary exists
-  stat:
-    path: "/usr/bin/nwg-shell"
-  register: nwgshell_bin
-
-- name: "installing an nwg-shell"
-  shell:
-    cmd: "yay -S --answerclean Y --answerdiff N --noconfirm --noprogressbar nwg-shell"
-  become: true
-  become_user: "spuxy"
-  when: not nwgshell_bin.stat.exists
+- name: "🖨️ coyping a dotfiles"
+  shell: "stow -d {{ ansible_dotfiles }} -S kitty"

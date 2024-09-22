@@ -1,6 +1,6 @@
 - name: "bluetooth"
   block:
-  - name: "isntalling an bluetooth"
+  - name: "📦 installing an package"
     community.general.pacman:
       name:
         - "blueman"
@@ -11,7 +11,7 @@
     become_user: 'root'
     become_method: 'sudo'
 
-  - name: "💎 enable systemd for bluetooth"
+  - name: "🚨 enable systemd bluetooth.service"
     ansible.builtin.systemd_service:
       name: bluetooth.service
       state: started

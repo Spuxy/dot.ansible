@@ -1,6 +1,6 @@
-- name: "WAYBAR"
+- name: "waybar"
   block:
-  - name: "[INSTALL] - deps for waybar"
+  - name: "📦 installing an package"
     community.general.pacman:
       name:
         - "waybar"
@@ -9,11 +9,11 @@
     become_user: 'root'
     become_method: 'sudo'
 
-  - name: "added user {{ ansible_user }} to 'input' group"
+  - name: "🔨 added user {{ ansible_user }} to 'input' group"
     ansible.builtin.user:
       name: "{{ ansible_user }}"
       groups: input
       append: yes
 
-  - name: "[STOW] - waybar"
+  - name: "🖨️ copying a dotfiles"
     shell: "stow -d {{ ansible_dotfiles }} -S waybar"

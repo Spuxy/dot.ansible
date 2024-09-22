@@ -1,9 +1,8 @@
-- name: "Zoxide"
+- name: "zoxide"
   block:
-  - name: "[INSTALL] - {{ pkg }}"
-    community.general.pacman:
-      name:
-        - "{{ pkg }}"
-      state: present
-  vars:
-    pkg: "zoxide"
+    - name: "📦 installing an package"
+      community.general.pacman:
+        name:
+          - zoxide
+        state: present
+

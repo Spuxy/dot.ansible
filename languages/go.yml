@@ -1,4 +1,4 @@
-- name: "install golang"
+- name: "👅 golang"
   community.general.pacman:
     name:
       - go

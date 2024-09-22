@@ -1,13 +1,15 @@
-- name: "installing a git 🐙"
-  community.general.pacman:
-    name:
-      - git
-      - git-delta
-      - diff-so-fancy
-    state: present
-  become: true
-  become_user: 'root'
-  become_method: 'sudo'
+- name: "git"
+  block:
+    - name: "📦 installing an package"
+      community.general.pacman:
+        name:
+          - git
+          - git-delta
+          - diff-so-fancy
+        state: present
+      become: true
+      become_user: 'root'
+      become_method: 'sudo'
 
-- name: "copying a dotfiles"
+- name: "🖨️ copying a dotfiles"
   shell: "stow -d {{ ansible_dotfiles }} -S git"

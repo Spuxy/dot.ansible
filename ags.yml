@@ -1,16 +1,16 @@
 - name: "AGS"
   block:
-  - name: "check if ags binary exists"
+  - name: "✅ check if binary exists"
     stat:
       path: "/usr/bin/ags" # different name of bin
     register: ags_bin
 
-  - name: "🧰 isntalling an ags"
+  - name: "📦 installing an package"
     shell:
       cmd: "yay -S --answerclean Y --answerdiff N --noconfirm --noprogressbar aylurs-gtk-shell"
     become: true
     become_user: spuxy
     when: not ags_bin.stat.exists
 
-  - name: "copying a dotfiles - ags"
+  - name: "🖨️ copying a dotfiles"
     shell: "stow -d {{ ansible_dotfiles }} -S ags"

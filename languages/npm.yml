@@ -1,4 +1,4 @@
-- name: "install npm"
+- name: "👅 npm"
   community.general.pacman:
     name:
       - npm

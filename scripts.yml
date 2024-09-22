@@ -1,6 +1,4 @@
-- name: "Scripts"
+- name: "scripts"
   block:
-  - name: "[STOW] - {{ pkg }}"
-    shell: "stow -d {{ ansible_dotfiles }} -S {{ pkg }}"
-  vars:
-    pkg: "scripts"
+  - name: "🖨️ copying a dotfiles"
+    shell: "stow -d {{ ansible_dotfiles }} -S scripts"

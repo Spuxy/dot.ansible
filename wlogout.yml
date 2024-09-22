@@ -1,55 +1,24 @@
 - name: "wlogout"
   block:
-  - name: "[INSTALL] - deps"
+  - name: "📦 installing a packages"
     community.general.pacman:
       name:
-        - "{{ dep1 }}"
-        - "{{ dep2 }}"
-        - "{{ dep3 }}"
-        - "{{ dep4 }}"
-        - "{{ dep5 }}"
-        - "{{ dep6 }}"
+        - "gobject-introspection"
+        - "gtk-layer-shell"
+        - "gtk3"
+        - "meson"
+        - "git"
+        - "scdoc"
       state: present
     become: true
     become_user: 'root'
     become_method: 'sudo'
 
-  - name: "[GIT CLONE] - wlogout"
-    ansible.builtin.git:
-      repo: "https://github.com/ArtsyMacaw/wlogout.git"
-      dest: "{{ ansible_home }}/Pkgs/wlogout"
-    become: true
-    become_user: '{{ ansible_user }}'
+  - name: "✅ check and install an 📦 {{ item }}"
+    ansible.builtin.command: yay -S --answerclean Y --answerdiff N --noconfirm --noprogressbar {{ item }}
+    loop:
+      - wlogout 
+    when: item not in installed_packages.stdout
 
-  - name: "[BUILD] - wlogout"
-    ansible.builtin.command: 'meson build'
-    args:
-      chdir: '{{ ansible_home }}/Pkgs/wlogout'
-    become: true
-    become_user: '{{ ansible_user }}'
-
-  - name: "[BUILD] - wlogout"
-    ansible.builtin.command: 'ninja -C build'
-    args:
-      chdir: '{{ ansible_home }}/Pkgs/wlogout'
-    become: true
-    become_user: '{{ ansible_user }}'
-
-  - name: "[BUILD] - wlogout"
-    ansible.builtin.command: 'ninja -C build install'
-    args:
-      chdir: '{{ ansible_home }}/Pkgs/wlogout'
-    become: true
-    become_user: 'root'
-    become_method: 'sudo'
-
-  - name: "copying a dotfiles"
+  - name: "🖨️ copying a dotfiles"
     shell: "stow -d {{ ansible_dotfiles }} -S wlogout"
-
-  vars:
-    dep1: "gobject-introspection"
-    dep2: "gtk-layer-shell"
-    dep3: "gtk3"
-    dep4: "meson"
-    dep5: "git"
-    dep6: "scdoc"

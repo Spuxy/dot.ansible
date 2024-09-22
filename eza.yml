@@ -1,11 +1,13 @@
-- name: "isntalling an eza"
-  community.general.pacman:
-    name:
-      - eza
-    state: present
-  become: true
-  become_user: 'root'
-  become_method: 'sudo'
+- name: "eza"
+  block:
+    - name: "📦 installing an package"
+      community.general.pacman:
+        name:
+          - eza
+        state: present
+      become: true
+      become_user: 'root'
+      become_method: 'sudo'
 
-- name: "copying a dotfiles - eza"
+- name: "🖨️ copying a dotfiles"
   shell: "stow -d {{ ansible_dotfiles }} -S eza"

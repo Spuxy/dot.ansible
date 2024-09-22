@@ -1,4 +1,4 @@
-- name: "install rust"
+- name: "👅 rust"
   community.general.pacman:
     name:
       - rust

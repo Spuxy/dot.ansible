@@ -1,100 +1,37 @@
 - name: "GTK"
   block:
-  - name: "installing a packages"
+  - name: "📦 installing a packages"
     community.general.pacman:
       name:
-        - "{{ pkg1 }}"
-        - "{{ pkg2 }}"
-        - "{{ pkg3 }}"
+        - "gtk3"
+        - "gtk4"
+        - "gtk-engine-murrine"
       state: present
     become: true
     become_user: 'root'
     become_method: 'sudo'
 
-  # - name: check if colloid gruvbox themes exists
-  #   stat:
-  #     path: "/usr/share/themes/Colloid-Compact-Gruvbox"
-  #   register: colloid_gruvbox_dir
+  - name: "🖨️ Copying an dotfiles"
+    shell: "stow -d {{ ansible_dotfiles }} -S gtk3"
 
-  - name: "installing colloid gruvbox themes"
-    shell:
-      cmd: "yay -S --answerclean Y --answerdiff N --noconfirm --noprogressbar colloid-gruvbox-gtk-theme-git"
-    become: true
-    become_user: spuxy
+  - name: "🍪 Gather installed packages"
+    ansible.builtin.command: pacman -Q
+    register: installed_packages
 
-  - name: "installing colloid gruvbox icons"
-    shell:
-      cmd: "yay -S --answerclean Y --answerdiff N --noconfirm --noprogressbar colloid-gruvbox-theme-git"
-    become: true
-    become_user: spuxy
-
-  - name: "installing colloid catppucino themes"
-    shell:
-      cmd: "yay -S --answerclean Y --answerdiff N --noconfirm --noprogressbar colloid-catpuccino-gtk-theme-git"
-    become: true
-    become_user: spuxy
-
-  - name: "installing colloid catppucino icons"
-    shell:
-      cmd: "yay -S --answerclean Y --answerdiff N --noconfirm --noprogressbar colloid-catpuccino-theme-git"
-    become: true
-    become_user: spuxy
-
-  - name: "installing colloid everforest themes"
-    shell:
-      cmd: "yay -S --answerclean Y --answerdiff N --noconfirm --noprogressbar colloid-everforest-gtk-theme-git"
-    become: true
-    become_user: spuxy
-
-  - name: "installing colloid everforest icons"
-    shell:
-      cmd: "yay -S --answerclean Y --answerdiff N --noconfirm --noprogressbar colloid-everforest-theme-git"
-    become: true
-    become_user: spuxy
-
-  - name: "installing colloid dracula themes"
-    shell:
-      cmd: "yay -S --answerclean Y --answerdiff N --noconfirm --noprogressbar colloid-dracula-gtk-theme-git"
-    become: true
-    become_user: spuxy
-
-  - name: "installing colloid dracula icons"
-    shell:
-      cmd: "yay -S --answerclean Y --answerdiff N --noconfirm --noprogressbar colloid-dracula-theme-git"
-    become: true
-    become_user: spuxy
-
-  - name: "installing colloid nord themes"
-    shell:
-      cmd: "yay -S --answerclean Y --answerdiff N --noconfirm --noprogressbar colloid-nord-gtk-theme-git"
-    become: true
-    become_user: spuxy
-
-  - name: "installing colloid dracula icons"
-    shell:
-      cmd: "yay -S --answerclean Y --answerdiff N --noconfirm --noprogressbar colloid-nord-icon-theme-git"
-    become: true
-    become_user: spuxy
-
-  - name: "installing colloid icon themes"
-    shell:
-      cmd: "yay -S --answerclean Y --answerdiff N --noconfirm --noprogressbar colloid-icon-theme-git"
-    become: true
-    become_user: spuxy
-
-  - name: "installing colloid cursors themes"
-    shell:
-      cmd: "yay -S --answerclean Y --answerdiff N --noconfirm --noprogressbar colloid-cursors-git"
-    become: true
-    become_user: spuxy
-
-  - name: "installing colloid gtk themes"
-    shell:
-      cmd: "yay -S --answerclean Y --answerdiff N --noconfirm --noprogressbar colloid-gtk-theme-git"
-    become: true
-    become_user: spuxy
-
-  vars:
-    pkg1: "gtk4"
-    pkg2: "nautilus"
-    pkg3: "gtk-engine-murrine"
+  - name: ✅ check and install an 📦 {{ item }}
+    ansible.builtin.command: yay -S --answerclean Y --answerdiff N --noconfirm --noprogressbar {{ item }}
+    loop:
+      - colloid-gruvbox-gtk-theme-git 
+      - colloid-gruvbox-theme-git 
+      - colloid-catpuccino-gtk-theme-git 
+      - colloid-catpuccino-theme-git 
+      - colloid-everforest-gtk-theme-git 
+      - colloid-everforest-theme-git 
+      - colloid-dracula-gtk-theme-git 
+      - colloid-dracula-theme-git 
+      - colloid-nord-gtk-theme-git 
+      - colloid-nord-icon-theme-git 
+      - colloid-icon-theme-git 
+      - colloid-cursors-git 
+      - colloid-gtk-theme-git 
+    when: item not in installed_packages.stdout

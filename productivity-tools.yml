@@ -1,79 +1,52 @@
-- name: "🧰 Install packages"
+- name: "📦 installing a packages"
   community.general.pacman:
     name:
       [
-        "termshark",
-        "wireshark-qt",
-        "gimp",
-        "xclip",
         "screenkey",
         "tldr",
-        "ripgrep",
-        "fd",
-        "fzf",
-        "discord",
-        "bottom",
-        "calcurse",
+        # reading/notes
+        "obsidian",
         "zathura",
-        "zip",
-        "unzip",
+        # media
+        "gimp",
+        "discord",
+        "firefox",
+        "kodi",
+        # network debugging
+        "nmap",
         "wget",
         "jq",
         "curl",
+        "termshark",
+        "wireshark-qt",
+        # files manipulation
+        "zip",
+        "unzip",
+        "ripgrep",
+        "fd",
+        "fzf",
+        "xclip",
+        # process debugging
         "lsof",
         "rsync",
         "strace",
+        "bottom",
       ]
     state: present
   become: true
   become_user: 'root'
   become_method: 'sudo'
 
-# I guess its total trash app
-# - name: "check if howdoi binary exists"
-#   stat:
-#     path: "/usr/bin/howdoi"
-#   register: howdoi_bin
-#
-# - name: "🧰 isntalling an howdoi"
-#   shell:
-#     cmd: "yay -S --answerclean Y --answerdiff N --noconfirm --noprogressbar howdoi"
-#   become: true
-#   become_user: spuxy
-#   when: not howdoi_bin.stat.exists
+- name: "🍪 Gather installed packages"
+  ansible.builtin.command: pacman -Q
+  register: installed_packages
 
-- name: "check if vencord binary exists"
-  stat:
-    path: "/usr/bin/vesktop" # different name of bin
-  register: vencord_bin
-
-- name: "🧰 isntalling an vencord"
-  shell:
-    cmd: "yay -S --answerclean Y --answerdiff N --noconfirm --noprogressbar vencord"
+- name: "✅ Check and install 📦 {{ item }}"
+  ansible.builtin.command: yay -S --answerclean Y --answerdiff N --noconfirm --noprogressbar {{ item }}
   become: true
-  become_user: spuxy
-  when: not vencord_bin.stat.exists
-
-- name: "check if ferdium binary exists"
-  stat:
-    path: "/usr/bin/ferdium" # different name of bin
-  register: ferdium_bin
-
-- name: "🧰 isntalling an ferdium"
-  shell:
-    cmd: "yay -S --answerclean Y --answerdiff N --noconfirm --noprogressbar ferdium"
-  become: true
-  become_user: spuxy
-  when: not ferdium_bin.stat.exists
-  
-- name: "check if 1password binary exists"
-  stat:
-    path: "/usr/bin/1password" # different name of bin
-  register: password_bin
-
-- name: "🧰 isntalling an 1password"
-  shell:
-    cmd: "yay -S --answerclean Y --answerdiff N --noconfirm --noprogressbar 1password"
-  become: true
-  become_user: spuxy
-  when: not password_bin.stat.exists
+  become_user: '{{ ansible_user }}'
+  loop:
+    - 1password
+    - ferdium
+    - vesktop-bin  
+  when: item not in installed_packages.stdout

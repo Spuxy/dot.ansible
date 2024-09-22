@@ -1,11 +1,13 @@
-- name: "installing an alacritty"
-  community.general.pacman:
-    name:
-      - alacritty
-    state: present
-  become: true
-  become_user: 'root'
-  become_method: 'sudo'
+- name: "Alacritty"
+  block:
+  - name: "📦 installing an package"
+    community.general.pacman:
+      name:
+        - alacritty
+      state: present
+    become: true
+    become_user: 'root'
+    become_method: 'sudo'
 
-- name: "[STOW] - Alacritty"
+- name: "🖨️ copying a dotfiles"
   shell: "stow -d {{ ansible_dotfiles }} -S alacritty"

@@ -1,24 +1,34 @@
-- name: "NEOVIM"
+- name: "neovim"
   block:
-  - name: "installing an neovim"
+  - name: "📦 installing an package"
     community.general.pacman:
       name:
         - "neovim"
       state: present
-    become: true
-    become_user: 'root'
-    become_method: 'sudo'
 
-  - name: check if dot.vim exists
+  - name: "✅ check if dot.vim exists"
     stat:
       path: "{{ ansible_home }}/.config/nvim"
     register: nvim_dir
 
-  - name: "git cloning an dot.vim repo"
-    ansible.builtin.git:
-      repo: "https://github.com/Spuxy/dot.vim.git"
-      dest: "{{ ansible_home }}/.config/nvim"
+  - name: "📁 creating dir nvim"
+    ansible.builtin.file:
+      path: "{{ ansible_home }}/.config/nvim"
+      state: directory
+    become: yes
+    become_user: "{{ ansible_user }}"
+
+  - name: "🪢 pulling dot.vim repository"
+    shell:
+      chdir: "{{ ansible_home }}/.config/nvim"
+      cmd: "git clone git@github.com:Spuxy/dot.vim.git ."
     become: true
-    become_user: 'root'
-    become_method: 'sudo'
+    become_user: '{{ ansible_user }}'
     when: not nvim_dir.stat.exists
+
+  - name: "🪢 fetching dot.vim repository"
+    shell:
+      chdir: "{{ ansible_home }}/.config/nvim"
+      cmd: "git pull origin master"
+    become: true
+    become_user: '{{ ansible_user }}'

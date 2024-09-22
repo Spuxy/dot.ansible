@@ -1,6 +1,6 @@
-- name: "Thunar"
+- name: "thunar"
   block:
-    - name: "🎵 installation thunar"
+    - name: "📦 isntalling a packages"
       community.general.pacman:
         name:
           [
@@ -16,17 +16,14 @@
       become_user: "root"
       become_method: "sudo"
 
-    - name: "[Thunar] - set as default file manager"
+    - name: "🔨 set as default file manager"
       shell: "xdg-mime default thunar.desktop application/x-wayland-gnome-saved-search"
 
-    - name: "[Thunar] - set as default file manager"
+    - name: "🔨 set as default file manager"
       shell: "xdg-mime default thunar.desktop inode/directory"
 
-    - name: "Copying an dotfiles"
-      shell: "stow -d {{ ansible_dotfiles }} -S gtk3"
-
-    - name: "Copying an dotfiles"
+    - name: "🖨️ copying a dotfiles"
       shell: "stow -d {{ ansible_dotfiles }} -S thunar"
 
-    - name: "Copying an dotfiles"
+    - name: "🖨️ copying a dotfiles"
       shell: "stow -d {{ ansible_dotfiles }} -S xfce4"

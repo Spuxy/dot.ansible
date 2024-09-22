@@ -1,14 +1,16 @@
-- name: "📔 install zathura"
-  community.general.pacman:
-    name:
-      - "zathura"
-    state: present
-  become: true
-  become_user: "root"
-  become_method: "sudo"
+- name: "zathura"
+  block:
+    - name: "📦 installing an package"
+      community.general.pacman:
+        name:
+          - zathura
+        state: present
 
-- name: "🧰 isntalling an zathura-pdf-mupdf"
-  shell:
-    cmd: "yay -S --answerclean Y --answerdiff N --noconfirm --noprogressbar zathura-pdf-mupdf"
-  become: true
-  become_user: spuxy
+    - name: "📦 isntalling an zathura-pdf-mupdf"
+      shell:
+        cmd: "yay -S --answerclean Y --answerdiff N --noconfirm --noprogressbar zathura-pdf-mupdf"
+      become: true
+      become_user: "{{ ansible_user }}"
+
+    - name: "🖨️ copying a dotfiles"
+      shell: "stow -d {{ ansible_dotfiles }} -S zathura"

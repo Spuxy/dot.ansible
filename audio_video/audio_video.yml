@@ -1,0 +1,20 @@
+- name: "🎵 Audio & 📹 Video"
+  community.general.pacman:
+    name:
+      - mpd
+      - mpv
+      - ncmpcpp 
+    state: present
+  become: true
+  become_user: 'root'
+  become_method: 'sudo'
+
+- name: "🖨️ copying a dotfiles"
+  shell: "stow -d {{ ansible_dotfiles }} -S {{ item }}"
+  become: true
+  become_user: "{{ ansible_user }}"
+  loop:
+    - mpd
+    - mpv
+    - ncmpcpp
+

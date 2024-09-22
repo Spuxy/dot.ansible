@@ -1,6 +1,6 @@
-- name: "Spotify"
+- name: "spotify"
   block:
-    - name: "installing an spotify"
+    - name: "📦 installing a packages"
       community.general.pacman:
         name:
           - "spotify"
@@ -10,22 +10,22 @@
       become_user: "root"
       become_method: "sudo"
 
-    - name: check if spotify-tui bin exists
+    - name: ✅ check if spotify-tui bin exists
       stat:
         path: "/usr/bin/spt"
       register: spt_bin
 
-    - name: "installing an spotify-tui"
+    - name: "📦 installing an package"
       shell:
         cmd: "yay -S --answerclean Y --answerdiff N --noconfirm --noprogressbar spotify-tui"
       become: true
-      become_user: spuxy
+      become_user: "{{ ansible_user }}"
       when: not spt_bin.stat.exists
 
-    - name: "copying a dotfiles"
+    - name: "🖨️ copying a dotfiles"
       shell: "stow -d {{ ansible_dotfiles }} -S spotifyd"
 
-    - name: "enable systemd spotifyd.service"
+    - name: "🚨 enable systemd spotifyd.service"
       ansible.builtin.systemd_service:
         name: "spotifyd.service"
         state: started
@@ -34,22 +34,3 @@
       become: true
       become_user: "{{ ansible_user }}"
 
-    - name: check if psst bin exists
-      stat:
-        path: "/usr/bin/psst"
-      register: psst_bin
-
-    - name: "GIT CLONE - psst"
-      ansible.builtin.git:
-        repo: "https://github.com/jpochyla/psst"
-        dest: "{{ ansible_home }}/Pkgs/psst"
-
-    - name: check if psst bin exists
-      stat:
-        path: "/usr/bin/psst"
-      register: psst_bin
-
-    - name: "BUILD - psst"
-      shell: 
-        chdir: "{{ ansible_home }}/Pkgs/psst"
-        cmd: "cargo build --release"

@@ -6,7 +6,7 @@
     - ansible_home: "/home/spuxy"
     - ansible_personal_scripts: "/home/spuxy/.local/share/bin"
     - ansible_zsh: "/home/spuxy/.config/zsh"
-    - ansible_pkgs: "/home/spuxy/Pkgs"
+    - ansible_upstreams_dir: "/home/spuxy/Upstreams"
   tasks:
     - name: "Full System Upgrade"
       community.general.pacman:
@@ -17,7 +17,7 @@
       #
     # Dirs
     - include_tasks: ./dirs.yml
-    - include_tasks: ./lutris.yml
+    - include_tasks: ./productivity-tools.yml
 
     # Languages
     - include_tasks: ./languages/python.yml
@@ -25,16 +25,16 @@
     - include_tasks: ./languages/rust.yml
     - include_tasks: ./languages/npm.yml
     - include_tasks: ./languages/ruby.yml
+    - include_tasks: ./languages/cpp.yml
 
     # Yay
     - include_tasks: ./yay.yml
     - include_tasks: ./pacman.yml
 
     # Tools
-    - include_tasks: ./productivity-tools.yml
 
     # Pre tasks
-    - include_tasks: ./plugins/stow.yml
+    # - include_tasks: ./plugins/stow.yml
     - include_tasks: ./stow.yml
     - include_tasks: ./hyprland-tools.yml
 
@@ -46,10 +46,12 @@
     - include_tasks: ./bluetooth.yml
     - include_tasks: ./btop.yml
 
+    - include_tasks: ./cava.yml
+
     - include_tasks: ./eww.yml
     - include_tasks: ./eza.yml
 
-    # - include_tasks: ./fonts.yml
+    - include_tasks: ./fonts.yml
 
     - include_tasks: ./git.yml
     - include_tasks: ./gtk.yml
@@ -59,15 +61,13 @@
 
     - include_tasks: ./kvantum.yml
 
-    - include_tasks: ./mpd.yml
-    - include_tasks: ./mpv.yml
+    - include_tasks: ./gaming/lutris.yml
+
+    - include_tasks: ./audio_video/audio_video.yml
+    - include_tasks: ./audio_video/pipewire.yml
 
     - include_tasks: ./neovim.yml
-    - include_tasks: ./ncmpcpp.yml
-    - include_tasks: ./neofetch.yml
     - include_tasks: ./nvidia.yml
-
-    - include_tasks: ./pipewire.yml
 
     - include_tasks: ./qutebrowser.yml
     - include_tasks: ./qt.yml

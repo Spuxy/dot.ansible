@@ -1,30 +1,37 @@
-- name: "PLUGIN STOW"
+- name: "🔌 plugin stow"
   block:
-  - name: "[ANSIBLE PLUGIN] - stow"
-    ansible.builtin.git:
-      repo: 'https://github.com/Spuxy/ansible-stow.git'
-      dest: "{{ ansible_home }}/Pkgs/ansible-stow"
+  - name: "📁 creating dir stow"
+    ansible.builtin.file:
+      path: "{{ ansible_upstreams_dir }}/ansible-stow"
+      state: directory
+    become: yes
+    become_user: "{{ ansible_user }}"
 
-  - name: Create a directory if it does not exist
+  - name: "🪢 pulling an ansible-stow repository"
+    shell:
+      chdir: "{{ ansible_upstreams_dir }}/ansible-stow"
+      cmd: "git clone git@github.com:Spuxy/ansible-stow.git"
+
+  - name: "📁 Create a directory if it does not exist"
     ansible.builtin.file:
       path: "{{ ansible_home }}/.ansible"
       state: directory
       mode: '0755'
 
-  - name: Create a directory if it does not exist
+  - name: "📁 Create a directory if it does not exist"
     ansible.builtin.file:
       path: "{{ ansible_home }}/.ansible/plugins"
       state: directory
       mode: '0755'
 
-  - name: Create a directory if it does not exist
+  - name: "📁 Create a directory if it does not exist"
     ansible.builtin.file:
       path: "{{ ansible_home }}/.ansible/plugins/modules"
       state: directory
       mode: '0755'
 
-  - name: "[STOW] - {{ pkg }}"
+  - name: "🖨️ copying the plugin to ansible's folder"
     shell: 
-      chdir: "{{ ansible_home }}/Pkgs/ansible-stow"
-      cmd: "cp stow {{ ansible_home }}/.ansible/plugins/modules"
+      chdir: "{{ ansible_upstreams_dir }}/ansible-stow"
+      cmd: "cp -r stow {{ ansible_home }}/.ansible/plugins/modules"
 

@@ -1,8 +1,10 @@
-- name: "[INSTALL] - stow"
-  community.general.pacman:
-    name:
-      - stow
-    state: present
-  become: true
-  become_user: 'root'
-  become_method: 'sudo'
+- name: "stow"
+  block:
+    - name: "📦 installing an package"
+      community.general.pacman:
+        name:
+          - stow
+        state: present
+      become: true
+      become_user: 'root'
+      become_method: 'sudo'
