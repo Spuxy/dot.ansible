@@ -1,30 +1,29 @@
 - name: "yay"
   block:
-    - name: check if yay exists
+    - name: "✅ check if yay exists"
       stat:
         path: /usr/bin/yay
       register: yay_bin
 
-    - name: "cloning yay's repo"
+    - name: "🪢 pulling upstream's repository"
       ansible.builtin.git:
         repo: "https://aur.archlinux.org/yay.git"
-        dest: "{{ ansible_home }}/Pkgs/yay"
+        dest: "{{ ansible_upstreams_dir }}/yay"
       become: yes
       become_user: "{{ ansible_user }}"
       when: not yay_bin.stat.exists
 
-    - name: "building an yay"
+    - name: "🔨 building an yay"
       shell: 
-        chdir: "{{ ansible_home }}/Pkgs/yay"
+        chdir: "{{ ansible_upstreams_dir }}/yay"
         cmd: "makepkg -si --noconfirm"
       become: yes
       become_user: "{{ ansible_user }}"
       when: not yay_bin.stat.exists
 
-    - name: "update & upgrade"
+    - name: "🔃 update & upgrade"
       shell: 
         cmd: "yay -Syu"
       become: yes
       become_user: "{{ ansible_user }}"
-      when: not yay_bin.stat.exists
 
