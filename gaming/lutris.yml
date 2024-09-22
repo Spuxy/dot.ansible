@@ -1,4 +1,4 @@
-- name: "lutris"
+- name: "gaming"
   block:
 
   # Potreba dstranit komnetar pro multilib
@@ -11,7 +11,7 @@
   #   become_user: root
   #   become_method: sudo
 
-  - name: "🧰 installing lutris"
+  - name: "📦 installing a packages (lutris)"
     community.general.pacman:
       name: 
         - "lib32-nvidia-utils"
@@ -22,7 +22,7 @@
     become: true
     become_user: "root"
 
-  - name: "🧰 installing wine"
+  - name: "📦 installing a packages (wine)"
     community.general.pacman:
       name: 
         - "wine-staging"
@@ -57,3 +57,9 @@
       state: present
     become: true
     become_user: "root"
+
+  - name: ✅ check and install an 📦 {{ item }}
+    ansible.builtin.command: yay -S --answerclean Y --answerdiff N --noconfirm --noprogressbar {{ item }}
+    loop:
+      - bottles
+    when: item not in installed_packages.stdout
