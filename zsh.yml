@@ -2,6 +2,7 @@
   community.general.pacman:
     name:
       - zsh
+      - vivid
     state: present
   become: true
   become_user: 'root'
@@ -16,6 +17,15 @@
 #   stat:
 #     path: /home/spuxy/.oh-my-zsh
 #   register: oh_my_stats
+
+- name: "📦 installing a zinit manager"
+  shell:
+    cmd: [
+      'bash -c "$(curl --fail --show-error --silent --location https://raw.githubusercontent.com/zdharma-continuum/zinit/HEAD/scripts/install.sh)',
+      'zinit self-update'
+    ]
+  become: true
+  become_user: "{{ ansible_user }}"
 
 - name: "😻 isntalling pokemon-colorscript"
   shell:

@@ -6,3 +6,6 @@
         - "cava"
       executable: yay
       state: present
+
+  - name: "🖨️ copying a dotfiles"
+    shell: "stow -d {{ ansible_dotfiles }} -S cava"

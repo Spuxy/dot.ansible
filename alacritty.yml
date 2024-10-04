@@ -5,9 +5,6 @@
       name:
         - alacritty
       state: present
-    become: true
-    become_user: 'root'
-    become_method: 'sudo'
 
-- name: "🖨️ copying a dotfiles"
-  shell: "stow -d {{ ansible_dotfiles }} -S alacritty"
+  - name: "🖨️ copying a dotfiles"
+    shell: "stow -d {{ ansible_dotfiles }} -S alacritty"

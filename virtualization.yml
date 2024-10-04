@@ -8,6 +8,10 @@
           - "qemu"
           - "iptables-nft"
           - "dnsmasq"
+          - "docker"
+          - "kubectl"
+          - "kind"
+          - "helm"
         state: present
 
     - name: "🚨 enable systemd libvirtd.service"
@@ -32,3 +36,10 @@
         name: "{{ ansible_user }}"
         groups: libvirt
         append: yes
+
+    - name: ✅ check and install an 📦 {{ item }}
+      ansible.builtin.command: yay -S --answerclean Y --answerdiff N --noconfirm --noprogressbar {{ item }}
+      loop:
+        # - nwg-shell
+        - kind 
+      when: item not in installed_packages.stdout

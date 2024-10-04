@@ -1,0 +1,96 @@
+# https://github.com/Naezr/ShyFox
+# https://github.com/Frewacom/pywalfox
+# https://github.com/AlexW00/StartTreeV2
+#
+# mv ./chrome ./user.js $HOME/.mozzila/firefox/{}.default-release
+#
+# yay -S python-pywalfox
+#
+
+- name: "firefox"
+  block:
+  - name: "📦 installing a packages"
+    community.general.pacman:
+      name:
+        - "firefox"
+      state: present
+    become: true
+    become_user: "root"
+    become_method: "sudo"
+
+  - name: "✅ check if user's dir exists"
+    ansible.builtin.find:
+      paths: "/home/spuxy/.mozilla/firefox/"
+      file_type: directory
+      patterns: "*.spuxy"
+    register: firefox_profile_dir
+
+  - name: "creating an profile"
+    shell:
+      cmd: "firefox --CreateProfile {{ ansible_user }} && firefox -P"
+    when: firefox_profile_dir.matched == 0
+    become: true
+    become_user: "{{ ansible_user }}"
+
+  - name: "📁 creating file autoconfig.js"
+    copy:
+      dest: "/usr/lib/firefox/defaults/pref/autoconfig.js"
+      content: |
+          //
+          pref("general.config.filename", "firefox.cfg");
+          pref("general.config.obscure_value", 0);
+          pref("general.config.sandbox_enabled", false);
+
+
+    become: true
+    become_user: "root"
+    become_method: "sudo"
+
+  - name: "📁 creating file firefox.cfg"
+    copy:
+      dest: "/usr/lib/firefox/firefox.cfg"
+      content: |
+          // firefox.cfg
+          try {
+            Components.utils.import("resource:///modules/AboutNewTab.jsm");
+            AboutNewTab.newTabURL = "file:///home/{{ansible_user}}/dot.files/firefox/starttree/index.html";
+          } catch(e){Components.utils.reportError(e);}
+
+
+    become: true
+    become_user: "root"
+    become_method: "sudo"
+
+
+  # - name: Execute command in the found directory
+  #   shell: "cd /home/spuxy/.mozilla/firefox/{{item.path}} && git clone https://github.com/Naezr/ShyFox.git && mv ./ShyFox/chrome ./ShyFox/user.js ."
+  #   loop: "{{ firefox_profile_dir.files }}"
+  #   when: item is not undefined
+    # when: firefox_profile_dir.matched == 0
+      #
+  - name: Find all directories in the Firefox profile folder
+    ansible.builtin.find:
+      paths: "{{ lookup('env', 'HOME') }}/.mozilla/firefox"
+      file_type: directory
+      patterns: "*"
+    register: firefox_profile_dir
+    become: true
+    become_user: "{{ ansible_user }}"
+
+  - name: Filter directories matching the regex pattern
+    set_fact:
+      matching_dirs: "{{ firefox_profile_dir.files | selectattr('path', 'search', '[a-zA-Z0-9]+\\.spuxy$') | list }}"
+
+  - name: Fail if no matching directory is found
+    fail:
+      msg: "No directory matching the specified pattern was found."
+    when: matching_dirs | length == 0
+
+  - name: Execute command in the found directory
+    shell: |
+      cd "{{ matching_dirs[0].path }}" &&
+      git clone https://github.com/Naezr/ShyFox.git &&
+      mv ./ShyFox/chrome ./ShyFox/user.js .
+    when: firefox_profile_dir | length > 0
+    become: true
+    become_user: "{{ ansible_user }}"

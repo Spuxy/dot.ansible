@@ -7,6 +7,7 @@
         # reading/notes
         "obsidian",
         "zathura",
+        "libreoffice-still",
         # media
         "gimp",
         "discord",
@@ -20,11 +21,14 @@
         "termshark",
         "wireshark-qt",
         # files manipulation
+        "rlwrap",
         "zip",
         "unzip",
         "ripgrep",
         "fd",
         "fzf",
+        "bat",
+        "tree",
         "xclip",
         # process debugging
         "lsof",
@@ -49,4 +53,5 @@
     - 1password
     - ferdium
     - vesktop-bin  
+    - visual-studio-code-bin
   when: item not in installed_packages.stdout
