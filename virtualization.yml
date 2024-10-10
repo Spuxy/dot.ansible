@@ -9,6 +9,7 @@
           - "iptables-nft"
           - "dnsmasq"
           - "docker"
+          - "docker-compose"
           - "kubectl"
           - "kind"
           - "helm"

@@ -16,6 +16,7 @@
       become_method: "sudo"
       #
     # Dirs
+    - include_tasks: ./tmux.yml
     - include_tasks: ./dirs.yml
     - include_tasks: ./productivity-tools.yml
 

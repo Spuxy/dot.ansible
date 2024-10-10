@@ -2,6 +2,7 @@
   community.general.pacman:
     name:
       - go
+      - delve
     state: present
   become: true
   become_user: 'root'
@@ -9,3 +10,6 @@
 
 - name: "🖨️ copying a dotfiles"
   shell: "go install github.com/go-delve/delve/cmd/dlv@v1.23.1"
+
+- name: "Install adapter"
+  shell: "cd {{ ansible_home }}/Upstreams && git clone https://github.com/golang/vscode-go && cd vscode-go/extension && npm install && npm run compile"
